@@ -1,7 +1,6 @@
 <template>
   <div class="page has-navbar" v-nav="{title: '选择新闻', showBackButton:true} ">
-  <!-- <div class="shop_list_container"> -->
-      <div class="newslist_container">
+      <div class="newslist_container page-content">
         <ul  v-if="newsListArr.length" type="1">
         <!-- v-load-more="loaderMore" -->
         <router-link :to="{path: '/setContent'}"  v-for="item in newsListArr" class="shop_li">
@@ -10,25 +9,21 @@
           </section>
           <hgroup class="shop_right">
             <header class="shop_detail_header">
-              <h4 :class="item.digg? 'premium': ''" class="" class="shop_title ellipsis">{{item.postTitle}}</h4>
+              <h4 :class="item.postType == 2 ? 'premium': ''" class="" class="shop_title ellipsis">{{item.postTitle}}</h4>
             </header>
             <h5 class="rating_order_num">
               <section class="rating_order_num_left">
-                <section class="rating_section">
                   <span class="rating_num">{{item.postExcerpt}}</span>
-                </section>
               </section>
               <section class="rating_order_num_right">
-                  <span class="delivery_style delivery_right rating_order_num">{{item.postDate}}</span>
+                  <span class="delivery_style  rating_order_num">{{item.postDate}}</span>
               </section>
             </h5>
           </hgroup>
         </router-link>
       </ul>
-      </div>
     </div>
-
-  <!-- </div> -->
+  </div>
 </template>
 
 <script>
@@ -76,7 +71,7 @@ bottomImg: null,
 bottomLink: null,
 hideComment: false,
 wxShare: null,
-digg: false
+digg: true
 },
 {
 id: "7d6f4dd3d0ef4ecf906c671d96be47c6",
@@ -563,12 +558,15 @@ digg: false
 <style lang="scss" scoped>
 	@import 'src/style/mixin';
 	.newslist_container{
-    padding-top: 44px;
 		background-color: #fff;
 		margin-bottom: 2rem;
+    overflow-y: auto;
+    overflow-x: hidden;
+
 	}
 	.shop_li{
 		display: flex;
+    text-decoration: none;
 		border-bottom: 0.025rem solid #f1f1f1;
 		padding: 0.7rem 0.4rem;
 	}
@@ -591,17 +589,17 @@ digg: false
 			.shop_title{
 				width: 8.5rem;
 				color: #333;
-				padding-top: .01rem;
+				// padding-top: .01rem;
 				@include font(0.65rem, 0.65rem, 'PingFangSC-Regular');
 				font-weight: 700;
 			}
 			.premium::before{
-				content: '品牌';
+				content: '热点';
 				display: inline-block;
 				font-size: 0.5rem;
-				line-height: .6rem;
-				color: #333;
-				background-color: #ffd930;
+				line-height: 1.0rem;
+				color: #ffffff;
+				background-color: #ff0000;
 				padding: 0 0.1rem;
 				border-radius: 0.1rem;
 				margin-right: 0.2rem;

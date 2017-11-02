@@ -35,13 +35,13 @@ textarea {
 }
 
 div.intcases {
-    font-family: arial; 
+    font-family: arial;
     font-size: 12px;
-    text-align:left; 
-    border:1px solid #AAA; 
-    background:#FFF none repeat scroll 0% 0%; 
-    z-index:9999; 
-    visibility:hidden; 
+    text-align:left;
+    border:1px solid #AAA;
+    background:#FFF none repeat scroll 0% 0%;
+    z-index:9999;
+    visibility:hidden;
     position:absolute;
     padding: 0px;
     border-radius: 3px;
@@ -52,7 +52,7 @@ div.intcaselink {
     cursor: pointer;
     padding: 3px 8px 3px 8px;
     margin: 5px;
-    background:#EEE none repeat scroll 0% 0%; 
+    background:#EEE none repeat scroll 0% 0%;
     border:1px solid #AAA;
     border-radius: 3px;
 }
@@ -105,11 +105,11 @@ div.annnotelabel {
     font-size: 10px;
     /*border: 1px solid rgb(166,221,242);*/
     cursor: help;
-    /*background:rgb(0,157,217) none repeat scroll 0% 0%;*/ 
+    /*background:rgb(0,157,217) none repeat scroll 0% 0%;*/
     padding: 1px 3px 1px 3px;
     white-space: nowrap;
     color: white;
-    
+
     background-color: #138CDD;
     -moz-box-shadow: 1px 1px 3px #aaa;
     -webkit-box-shadow: 1px 1px 3px #aaa;
@@ -179,7 +179,7 @@ div.annnotelabel {
     box-shadow: 0 0 20px #15d6ba;
   }
 }
- 
+
 @-moz-keyframes pulsate {
   from {
     -moz-box-shadow: 0 0 10px #15d6ba;
@@ -204,7 +204,7 @@ div.annnotelabel {
   animation-duration: 0.9s;
   animation-iteration-count: infinite;
   animation-direction: alternate;
-  
+
   -webkit-animation-name: pulsate;
   -webkit-animation-timing-function: ease-in-out;
   -webkit-animation-duration: 0.9s;

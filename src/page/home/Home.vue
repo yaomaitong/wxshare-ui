@@ -17,7 +17,7 @@
       </swiper>
 
       <div>
-        <cells :items="entrances" :on-cell-click="onCellClick" row="2" col="2"></cells>
+        <cells :items="entrances" :on-cell-click="onCellClick" row="12" col="1"></cells>
       </div>
     </div>
   </div>
@@ -30,16 +30,16 @@
               '<div class="entrance assertive"><i class="icon ion-ios-flame"></i><br><span>新建分享</span></div>',
               '<div class="entrance energized"><i class="icon ion-ios-search"></i><br><span>历史分享</span></div>',
               '<div class="entrance balanced"><i class="icon ion-ios-location"></i><br><span>手机管理</span></div>',
-              '<div class="entrance positive"><i class="icon ion-ios-star"></i><br><span>设置</span></div>'
-          ]
+              '<div class="entrance positive"><i class="icon ion-ios-star"></i><br><span>设置</span></div>',
+            ]
       }
     },
     methods: {
       onCellClick (obj) {
         if (obj == 0) {
             $router.forward('/addShare')
-        } else if (obj == 1) {
-            // $router.forward('/test')
+        } else if (obj == 2) {
+            $router.forward('/chooseDevices')
         }
         // $toast.show("item clicked.")
       }
@@ -53,6 +53,6 @@
   }
 
   .page.has-navbar .page-content {
-    padding-top: 64px;
+    padding-top: 44px;
   }
 </style>
