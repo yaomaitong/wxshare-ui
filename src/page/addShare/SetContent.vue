@@ -16,14 +16,15 @@
         </item>
         <item class="item-icon-right">
           图片
-            <div>
-                <input type="file">
+            <div style="margin-top:0.5rem">
+              <VueImgInputer accept="image/*" capture=false multiple v-model="picValue" theme="light" size="small"></VueImgInputer>
+                <!-- <input type="file"> -->
             </div>
             <!-- <md-button class="addImage" @click.native="chooseImg">点击选择图片</md-button> -->
           </item>
       </list>
       <div>
-          <md-button class="confirm_button" @click.native="postpois">提交</md-button>
+          <md-button class="confirm_button" @click.native="submitInfo">提交</md-button>
       </div>
     </div>
   </div>
@@ -31,19 +32,34 @@
 
 
 <script>
+// npm install vue-img-inputer -D
+import VueImgInputer from 'vue-img-inputer'
+
     export default {
+        components: {
+            VueImgInputer
+        },
         	data(){
                 return{
                     inputUrl:'', // 网址
                     inputTitle:'', // 标题
+                    picValue,
                 }
             },
             methods: {
-              postpois(){
+              submitInfo(){
                 if (this.inputUrl && this.inputTitle) {
 
+                  if (this.picValue) {
+                    let size = this.picValue.size / 1024 / 1024
+                    size = size.toFixed(2)
+                    $toast.show('图片大小'+ size + 'M')
+
+                  } else {
+                      $toast.show('图片不能为空！')
+                  }
                 } else {
-                  $toast.show('网址或标题不能为空！')
+                    $toast.show('网址或标题不能为空！')
                 }
             },
             chooseImg () {
