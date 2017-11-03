@@ -16,16 +16,13 @@
         </item>
         <item class="item-icon-right">
           图片
-            <div style="margin-top:0.5rem">
+            <div style="margin-top:0.5rem; margin-bottom:1.5rem">
               <VueImgInputer accept="image/*" capture=false multiple v-model="picValue" theme="light" size="small"></VueImgInputer>
                 <!-- <input type="file"> -->
             </div>
-            <!-- <md-button class="addImage" @click.native="chooseImg">点击选择图片</md-button> -->
           </item>
       </list>
-      <div>
-          <md-button class="confirm_button" @click.native="submitInfo">提交</md-button>
-      </div>
+      <ConfirmButton btnTitle="确定" :submit='submitInfo' />
     </div>
   </div>
 </template>
@@ -33,14 +30,16 @@
 
 <script>
 // npm install vue-img-inputer -D
-import VueImgInputer from 'vue-img-inputer'
+    import VueImgInputer from 'vue-img-inputer'
+    import ConfirmButton from '../../components/ConfirmButton.vue'
 
     export default {
-        components: {
-            VueImgInputer
-        },
-        	data(){
-                return{
+          components: {
+              ConfirmButton,
+              VueImgInputer
+          },
+        	data() {
+                return {
                     inputUrl:'', // 网址
                     inputTitle:'', // 标题
                     picValue,
@@ -96,19 +95,6 @@ import VueImgInputer from 'vue-img-inputer'
   /*height: 1.5rem;*/
   /*line-height: 1.5rem;*/
   /*text-align: center;*/
-}
-
-.confirm_button {
-  color: #ffffff;
-  font-size: 18px;
-  position:fixed;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #ff0000;
-  text-align: center;
-  height: 3rem;
-  line-height: 3rem;
 }
 
 .input_text {

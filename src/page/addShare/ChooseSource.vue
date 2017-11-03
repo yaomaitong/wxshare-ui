@@ -15,13 +15,21 @@
           <span class="icon ion-ios-arrow-right"></span>
         </item>
       </list>
+      <ConfirmButton :submit='submitInfo' />
     </div>
   </div>
 </template>
 
 <script>
+import ConfirmButton from '../../components/ConfirmButton.vue'
 export default {
+  components : {
+    ConfirmButton,
+  },
   methods: {
+    submitInfo () {
+        $toast.show('来源选择')
+    },
     onClick (index) {
       if (index == 0) {
         $router.forward('/setContent')

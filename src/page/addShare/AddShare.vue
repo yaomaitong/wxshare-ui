@@ -24,13 +24,18 @@
           <span class="icon ion-ios-arrow-right"></span>
         </item>
       </list>
+      <ConfirmButton btnTitle="确定" :submit='submitInfo' />
     </div>
   </div>
 </template>
 
 <script>
+import ConfirmButton from '../../components/ConfirmButton.vue'
 export default{
-    data(){
+  components : {
+    ConfirmButton,
+  },
+    data() {
       return {
         pushNotification: true
       }
@@ -42,6 +47,9 @@ export default{
         } else if (index == 1) {
           $router.forward('/chooseDevices')
         }
+      },
+      submitInfo () {
+        $toast.show('提交新建的分享')
       }
     }
   }

@@ -23,6 +23,7 @@
         </router-link>
       </ul>
     </div>
+    <ConfirmButton btnTitle="确定" :submit='submitInfo' />
   </div>
 </template>
 
@@ -30,8 +31,11 @@
 
 import {newsList} from 'src/service/getData'
 import {mapState} from 'vuex'
-
-export default {
+import ConfirmButton from '../../components/ConfirmButton.vue'
+export default{
+  components : {
+    ConfirmButton,
+  },
     data(){
         return {
           pageNo: 1,
@@ -43,6 +47,9 @@ export default {
         this.initData();
     },
     methods : {
+      submitInfo () {
+        $toast.show('选择完新闻')
+      },
         async initData () {
           //获取数据
           // let res = await newsList(this.pageNo, this.pageSize);

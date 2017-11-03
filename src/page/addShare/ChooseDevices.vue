@@ -15,6 +15,21 @@
           <span class="icon ion-ios-arrow-right"></span>
         </item>
       </list>
+      <ConfirmButton btnTitle="确定" :submit='submitInfo' />
     </div>
   </div>
 </template>
+
+<script>
+import ConfirmButton from '../../components/ConfirmButton.vue'
+export default {
+  components : {
+      ConfirmButton,
+  },
+  methods : {
+      submitInfo () {
+        $toast.show('选择好设备')
+      }
+  }
+}
+</script>
