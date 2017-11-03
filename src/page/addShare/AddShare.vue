@@ -1,6 +1,6 @@
 <template>
   <div class="page has-navbar" v-nav="{title: '新建分享', showBackButton:true} ">
-    <div class="page-content text-left">
+    <div class="page-content">
       <list>
         <item class="item-icon-right" @click.native="onClick(0)">
           选择来源
@@ -19,7 +19,7 @@
         <item class="item-icon-right">
           强制分享
           <div class="item-note">
-              <von-toggle :value.sync="pushNotification"></von-toggle>
+              <von-toggle :value.sync="pushNotification" v-model='pushNotification'></von-toggle>
           </div>
           <span class="icon ion-ios-arrow-right"></span>
         </item>
@@ -30,14 +30,10 @@
 </template>
 
 <script>
-import ConfirmButton from '../../components/ConfirmButton.vue'
-export default{
-  components : {
-    ConfirmButton,
-  },
+export default {
     data() {
       return {
-        pushNotification: true
+        pushNotification: false
       }
     },
     methods: {
@@ -49,8 +45,8 @@ export default{
         }
       },
       submitInfo () {
-        $toast.show('提交新建的分享')
+        $toast.show('强制分享：' + this.pushNotification)
       }
     }
-  }
+}
 </script>

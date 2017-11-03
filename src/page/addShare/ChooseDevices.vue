@@ -21,11 +21,7 @@
 </template>
 
 <script>
-import ConfirmButton from '../../components/ConfirmButton.vue'
 export default {
-  components : {
-      ConfirmButton,
-  },
   methods : {
       submitInfo () {
         $toast.show('选择好设备')

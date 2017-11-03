@@ -30,12 +30,7 @@
 <script>
 
 import {newsList} from 'src/service/getData'
-import {mapState} from 'vuex'
-import ConfirmButton from '../../components/ConfirmButton.vue'
 export default{
-  components : {
-    ConfirmButton,
-  },
     data(){
         return {
           pageNo: 1,

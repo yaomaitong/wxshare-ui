@@ -1,23 +1,23 @@
 <template>
   <div class="page has-navbar" v-nav="{title: '设置分享内容', showBackButton:true} ">
-    <div class="page-content text-left">
+    <div class="page-content">
       <list>
         <item class="item-icon-right">
           网址
           <div class="input_text">
-            <input type="text" name="urlLink" placeholder="分享的网址" required v-model='inputUrl'>
+            <input type="text" placeholder="分享的网址" v-model='inputUrl'>
           </div>
         </item>
         <item class="item-icon-right">
             标题
             <div class="input_text">
-                <input type="text" name="shareTitle" placeholder="分享的标题" required v-model='inputTitle'>
+                <input type="text" placeholder="分享的标题" v-model='inputTitle'>
             </div>
         </item>
         <item class="item-icon-right">
           图片
             <div style="margin-top:0.5rem; margin-bottom:1.5rem">
-              <VueImgInputer accept="image/*" capture=false multiple v-model="picValue" theme="light" size="small"></VueImgInputer>
+              <VueImgInputer accept="image/*" multiple v-model="picValue" theme="light" size="small"></VueImgInputer>
                 <!-- <input type="file"> -->
             </div>
           </item>
@@ -29,22 +29,21 @@
 
 
 <script>
+    // import '../../components/global'
 // npm install vue-img-inputer -D
     import VueImgInputer from 'vue-img-inputer'
-    import ConfirmButton from '../../components/ConfirmButton.vue'
-
     export default {
           components: {
-              ConfirmButton,
               VueImgInputer
           },
-        	data() {
-                return {
-                    inputUrl:'', // 网址
-                    inputTitle:'', // 标题
-                    picValue,
-                }
-            },
+          data () {
+            return {
+              inputUrl : '',
+              inputTitle : '',
+              picValue : ''
+            }
+
+          },
             methods: {
               submitInfo(){
                 if (this.inputUrl && this.inputTitle) {
@@ -53,35 +52,16 @@
                     let size = this.picValue.size / 1024 / 1024
                     size = size.toFixed(2)
                     $toast.show('图片大小'+ size + 'M')
-
+                    customUrl = this.inputUrl
+                    customTitle = this.inputTitle
+                    customImg = this.picValue
+                    // $router.back('/chooseSource')
                   } else {
                       $toast.show('图片不能为空！')
                   }
                 } else {
                     $toast.show('网址或标题不能为空！')
                 }
-            },
-            chooseImg () {
-              // $toast.show('选择图片！')
-                  let inputDOM = this.$refs.inputer;
-                  // 通过DOM取文件数据
-                  this.file    = inputDOM.files[0];
-                  this.errText = '';
-
-                  let size = Math.floor(this.file.size / 1024);
-                  if (size > 5.0) {
-                      // 这里可以加个文件大小控制
-                      return false
-                  }
-
-                  // 触发这个组件对象的input事件
-                  this.$emit('input', this.file);
-
-                  // 这里就可以获取到文件的名字了
-                  this.fileName = this.file.name;
-
-                  // 这里加个回调也是可以的
-                  this.onChange && this.onChange(this.file, inputDOM.value);
             }
           }
       }

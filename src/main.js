@@ -1,5 +1,11 @@
 import Vue from 'vue'
 import Vonic from 'vonic'
+import './components/global'
+
+//
+import ConfirmButton from 'src/components/ConfirmButton'
+
+Vue.component('ConfirmButton', ConfirmButton)
 
 // Page Components
 import Index from './components/Index.vue'
