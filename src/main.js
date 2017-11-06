@@ -1,10 +1,8 @@
 import Vue from 'vue'
 import Vonic from 'vonic'
-import './components/global'
+import store from './store/store'
 
-//
 import ConfirmButton from 'src/components/ConfirmButton'
-
 Vue.component('ConfirmButton', ConfirmButton)
 
 // Page Components
@@ -31,5 +29,6 @@ const routes = [
 ]
 
 Vue.use(Vonic.app, {
-  routes: routes
+  routes : routes,
+  store : store
 })
