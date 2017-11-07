@@ -10,10 +10,6 @@
           药脉通新闻资讯
           <span class="icon ion-ios-arrow-right"></span>
         </item>
-        <item class="item-icon-right" @click.native="onClick(2)">
-          新浪微博
-          <span class="icon ion-ios-arrow-right"></span>
-        </item>
       </list>
       <ConfirmButton :submit='submitInfo' />
     </div>

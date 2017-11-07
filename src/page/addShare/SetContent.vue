@@ -2,18 +2,8 @@
   <div class="page has-navbar" v-nav="{title: '设置分享内容', showBackButton:true} ">
     <div class="page-content">
       <list>
-        <item class="item-icon-right">
-          网址
-          <div class="input_text">
-            <input type="text" placeholder="分享的网址" v-model='inputUrl'>
-          </div>
-        </item>
-        <item class="item-icon-right">
-            标题
-            <div class="input_text">
-                <input type="text" placeholder="分享的标题" v-model='inputTitle'>
-            </div>
-        </item>
+        <von-input type="text" v-model="inputUrl" placeholder="请输入分享的网址" label="网址" floating-label="true"></von-input>
+        <von-input type="text" v-model="inputTitle" placeholder="请输入分享的标题" label="标题" floating-label="true"></von-input>
         <item class="item-icon-right">
           图片
             <div style="margin-top:0.5rem; margin-bottom:1.5rem">
@@ -29,7 +19,7 @@
 
 
 <script>
-    // import '../../components/global'
+
 // npm install vue-img-inputer -D
     import VueImgInputer from 'vue-img-inputer'
     export default {
@@ -38,24 +28,26 @@
           },
           data () {
             return {
-              inputUrl : '',
-              inputTitle : '',
-              picValue : ''
+              inputUrl : this.$store.state.customShareInfo.url,
+              inputTitle : this.$store.state.customShareInfo.title,
+              picValue : this.$store.state.customShareInfo.img
             }
-
           },
             methods: {
               submitInfo(){
-                if (this.inputUrl && this.inputTitle) {
+                let title = this.inputTitle
+                let url = this.inputUrl
+                if (title && url) {
+                  let img = this.picValue
+                  if (img) {
+                    //提示图片size
+                    // let size = this.picValue.size / 1024 / 1024
+                    // size = size.toFixed(2)
+                    // $toast.show('图片大小'+ size + 'M')
 
-                  if (this.picValue) {
-                    let size = this.picValue.size / 1024 / 1024
-                    size = size.toFixed(2)
-                    $toast.show('图片大小'+ size + 'M')
-                    customUrl = this.inputUrl
-                    customTitle = this.inputTitle
-                    customImg = this.picValue
-                    // $router.back('/chooseSource')
+                    //图片选择完立马上传获取到url 再存储
+                    this.$store.commit('setCustomShareInfo', {title, url, img})
+                    this.$router.go(-2)
                   } else {
                       $toast.show('图片不能为空！')
                   }
@@ -68,14 +60,6 @@
 </script>
 
 <style>
-
-.addImage {
-  /*margin-top: 0.3rem;*/
-  /*width: 8rem;*/
-  /*height: 1.5rem;*/
-  /*line-height: 1.5rem;*/
-  /*text-align: center;*/
-}
 
 .input_text {
   margin-top: 0.3rem;

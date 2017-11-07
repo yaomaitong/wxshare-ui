@@ -1,7 +1,5 @@
 <template>
-    <div>
-        <md-button class="confirm_button" @click.native="submitInfo">{{btnTitle}}</md-button>
-    </div>
+    <md-button class="confirm_button button button-assertive button-block" @click.native="submitInfo">{{btnTitle}}</md-button>
 </template>
 
 <script>
@@ -30,15 +28,9 @@
 
 <style>
     .confirm_button {
-      color: #ffffff;
-      font-size: 18px;
       position:fixed;
-      left: 0;
-      right: 0;
+      left: 10px;
+      right: 10px;
       bottom: 0;
-      background-color: #ff0000;
-      text-align: center;
-      height: 3rem;
-      line-height: 3rem;
     }
 </style>

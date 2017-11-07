@@ -1,5 +1,12 @@
 <template>
-  <div class="page has-navbar" v-nav="{title: '选择设备', showBackButton:true} ">
+  <div class="page has-navbar"
+      v-nav="{
+          title: '选择设备',
+          showBackButton:true,
+          showMenuButton: true,
+          menuButtonText:'全选',
+          onMenuButtonClick: chooseAll
+        }">
     <div class="page-content text-left">
         <div class="item item-divider">
             选择需要转发的设备:
@@ -21,8 +28,8 @@
 export default {
     data () {
       return {
-        chosenDevices: [0, 1, 2],
-        devices: ['小米1' , '小米2', '小米3']//接口获取后把需要显示的相关信息提取出来
+          chosenDevices: [],
+          devices: ['小米1' , '小米2', '小米3']//接口获取后把需要显示的相关信息提取出来
       }
     },
     methods : {
@@ -35,6 +42,13 @@ export default {
 
           //返回上一页
           this.$router.go(-1);
+        },
+        chooseAll () {
+          //先清空已选择
+          this.chosenDevices.splice(0,this.chosenDevices.length);
+          for (var i = 0; i < this.devices.length; i++) {
+              this.chosenDevices.push(i);
+          }
         }
     }
 }

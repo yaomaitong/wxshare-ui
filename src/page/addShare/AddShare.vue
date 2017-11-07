@@ -1,5 +1,10 @@
 <template>
-  <div class="page has-navbar" v-nav="{title: '新建分享', showBackButton:true} ">
+  <div class="page has-navbar"
+   v-nav="{
+     title: '新建分享',
+     showBackButton:true,
+     onBackButtonClick: back
+   }">
     <div class="page-content">
       <list>
         <item class="item-icon-right" @click.native="onClick(0)">
@@ -17,6 +22,20 @@
           <span class="icon ion-ios-arrow-right"></span>
         </item>
         <von-toggle text="强制分享" v-model="isforce"></von-toggle>
+
+        <!-- 预览手动设置的信息 -->
+        <div class="padding item-icon-right preview" v-if="$store.state.sourceType == '手动设置'">
+            <h5>手动设置信息预览:</h5>
+            标题:{{$store.state.customShareInfo.title}}
+            <br/>
+            网址:{{$store.state.customShareInfo.url}}
+            <br/>
+            图片:
+            <div>
+                <img class="previewImg" src="../../img/home.png">
+            </div>
+          </p>
+        </div>
       </list>
       <ConfirmButton btnTitle="确定" :submit='submitInfo' />
     </div>
@@ -32,18 +51,30 @@ export default {
       }
     },
     methods: {
-      onClick (index) {
-        if (index == 0) {
-          $router.forward('/chooseSource')
-        } else if (index == 1) {
-          $router.forward('/chooseDevices')
+        back () {
+            //清除数据
+            this.$store.commit('clear')
+            this.$router.go(-1)
+        },
+        onClick (index) {
+            if (index == 0) {
+                $router.forward('/chooseSource')
+            } else if (index == 1) {
+                $router.forward('/chooseDevices')
+            }
+        },
+        submitInfo () {
+            if (this.$store.state.sourceType == '请选择') {
+                $toast.show('请选择分享来源')
+                return
+            }
+            if (this.$store.state.deviceCount == 0) {
+                $toast.show('请选择分享的设备')
+                return
+            }
+
+            $toast.show('OK,强制分享:' + this.isforce + ',可以提交了')
         }
-      },
-      submitInfo () {
-        this.$store.commit('changeDeviceCount', 1008)
-        this.$store.commit('changeSourceType', '你是个傻B')
-        $toast.show('强制分享：' + this.isforce)
-      }
     }
 }
 </script>
@@ -56,5 +87,11 @@ export default {
       transform: translateY(-49%);
       width: 6rem;
       height: 1.5rem;
+  };
+  .preview {
+      background-color: #ffffff;
+  };
+  .previewImg {
+    width: 30%;
   }
 </style>

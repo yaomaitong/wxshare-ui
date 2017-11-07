@@ -17,7 +17,7 @@
       </swiper>
 
       <div>
-        <cells :items="entrances" :on-cell-click="onCellClick" row="12" col="1"></cells>
+          <cells :items="entrances" :on-cell-click="onCellClick" row="2" col="2"></cells>
       </div>
     </div>
   </div>
