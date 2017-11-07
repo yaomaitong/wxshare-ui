@@ -5,6 +5,9 @@ import store from './store/store'
 import ConfirmButton from 'src/components/ConfirmButton'
 Vue.component('ConfirmButton', ConfirmButton)
 
+// import CheckBox from 'src/components/CheckBox'
+// Vue.component('CheckBox', CheckBox)
+
 // Page Components
 import Index from './components/Index.vue'
 import About from './components/About.vue'
@@ -32,3 +35,8 @@ Vue.use(Vonic.app, {
   routes : routes,
   store : store
 })
+
+// TODO ：
+// 新闻页面+设备页面的选择
+// 网络请求
+// 开关按钮的报错优化

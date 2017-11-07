@@ -1,5 +1,5 @@
 <template>
-    <div class="">
+    <div>
         <md-button class="confirm_button" @click.native="submitInfo">{{btnTitle}}</md-button>
     </div>
 </template>

@@ -9,7 +9,7 @@
           </section>
           <hgroup class="shop_right">
             <header class="shop_detail_header">
-              <h4 :class="item.postType == 2 ? 'premium': ''" class="" class="shop_title ellipsis">{{item.postTitle}}</h4>
+              <h4 :class="item.postType == 2 ? 'premium': ''" class="shop_title ellipsis">{{item.postTitle}}</h4>
             </header>
             <h5 class="rating_order_num">
               <section class="rating_order_num_left">

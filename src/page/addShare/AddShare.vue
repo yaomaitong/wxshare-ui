@@ -16,16 +16,7 @@
           </div>
           <span class="icon ion-ios-arrow-right"></span>
         </item>
-        <item class="item-icon-right">
-          强制分享
-          <div class="item-note">
-              <div>
-                  <!-- <von-toggle v-model="pushNotification"></von-toggle> -->
-                  <!-- <div class="item item-divider">开关状态: <span>{{ pushNotification ? '开启' : '关闭' }}</span> -->
-              </div>
-          </div>
-          <span class="icon ion-ios-arrow-right"></span>
-        </item>
+        <von-toggle text="强制分享" v-model="isforce"></von-toggle>
       </list>
       <ConfirmButton btnTitle="确定" :submit='submitInfo' />
     </div>
@@ -37,7 +28,7 @@
 export default {
     data() {
       return {
-        pushNotification: false,
+        isforce: false,
       }
     },
     methods: {
@@ -51,9 +42,19 @@ export default {
       submitInfo () {
         this.$store.commit('changeDeviceCount', 1008)
         this.$store.commit('changeSourceType', '你是个傻B')
-
-        // $toast.show('强制分享：' + this.pushNotification)
+        $toast.show('强制分享：' + this.isforce)
       }
     }
 }
 </script>
+
+<style>
+  .toggle-force {
+      position: absolute;
+      right:5%;
+      top:51%;
+      transform: translateY(-49%);
+      width: 6rem;
+      height: 1.5rem;
+  }
+</style>
