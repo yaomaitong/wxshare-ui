@@ -47,7 +47,11 @@
 
                     //图片选择完立马上传获取到url 再存储
                     this.$store.commit('setCustomShareInfo', {title, url, img})
-                    this.$router.go(-2)
+                    //如果需要返回效果  使用
+                     $router.back({ path: '/addShare' })
+                     //推出效果
+                     // this.$router.go(-2)
+
                   } else {
                       $toast.show('图片不能为空！')
                   }

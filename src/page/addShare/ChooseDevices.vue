@@ -8,17 +8,7 @@
           onMenuButtonClick: chooseAll
         }">
     <div class="page-content text-left">
-        <div class="item item-divider">
-            选择需要转发的设备:
-        </div>
-      <!-- <list>
-        <item class="item-icon-right" v-for="item in devices">
-          {{ item.name }}
-        </item>
-      </list> -->
-
       <von-checkbox :options="devices" v-model="chosenDevices" theme="positive"></von-checkbox>
-
       <ConfirmButton btnTitle="确定" :submit='submitInfo' />
     </div>
   </div>
@@ -41,7 +31,7 @@ export default {
           // $toast.show('选择设备个数'+ isAll + deviceCount)
 
           //返回上一页
-          this.$router.go(-1);
+          // this.$router.go(-1);
         },
         chooseAll () {
           //先清空已选择

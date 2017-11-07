@@ -1,25 +1,16 @@
 <template>
   <div class="page has-navbar" v-nav="{title: '药脉通分享'} ">
-
-    <div class="page-content text-center">
-      <swiper direction="horizontal" ref="swiper" width="100%" height="30%">
-        <swiper-item>
-          <img src="../../img/home.png" width="100%" height="100%" />
-        </swiper-item>
-
-        <swiper-item>
-          <img src="../../img/home.png" width="100%" height="100%" />
-        </swiper-item>
-
-        <swiper-item>
-          <img src="../../img/home.png" width="100%" height="100%" />
-        </swiper-item>
-      </swiper>
-
-      <div>
-          <cells :items="entrances" :on-cell-click="onCellClick" row="2" col="2"></cells>
+      <div class="page-content">
+          <div class="head_img_container text-center">
+            <img  src="../../img/home.png" class="head_img" />
+            <p>
+              瓜皮
+            </p>
+          </div>
+          <div>
+              <cells class="cells-33" :items="entrances" :on-cell-click="onCellClick" row="2"></cells>
+          </div>
       </div>
-    </div>
   </div>
 </template>
 <script>
@@ -47,11 +38,34 @@
   }
 </script>
 
-<style>
+<!-- 加上lang="scss"预编译，样式才能写在样式里面 -->
+<style lang="scss">
+    .entrance {
+      height: 100px;
+      padding: 35px 0;
+      .icon {
+        font-size: 30px;
+        line-height: 30px;
+        width: 30px;
+        height: 30px;
+        margin-bottom: 6px;
+      }
+      span {
+        font-size: 15px;
+        line-height: 15px;
+      }
+    };
 
-  h2 {
-    font-family: Candara,Calibri,Segoe,Segoe UI,Optima,Arial,sans-serif;
-    color: #888;
+
+  .head_img_container {
+      margin-top: 30px;
+      margin-bottom: 30px;
+  }
+
+  .head_img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
   }
 
   .page.has-navbar .page-content {

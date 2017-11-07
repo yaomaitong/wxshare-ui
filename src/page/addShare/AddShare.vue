@@ -27,9 +27,9 @@
         <div class="padding item-icon-right preview" v-if="$store.state.sourceType == '手动设置'">
             <h5>手动设置信息预览:</h5>
             标题:{{$store.state.customShareInfo.title}}
-            <br/>
+            <br>
             网址:{{$store.state.customShareInfo.url}}
-            <br/>
+            <br>
             图片:
             <div>
                 <img class="previewImg" src="../../img/home.png">
@@ -54,7 +54,7 @@ export default {
         back () {
             //清除数据
             this.$store.commit('clear')
-            this.$router.go(-1)
+            $router.back({path: '/'})
         },
         onClick (index) {
             if (index == 0) {

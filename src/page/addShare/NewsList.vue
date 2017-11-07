@@ -561,7 +561,7 @@ digg: false
 	@import 'src/style/mixin';
 	.newslist_container{
 		background-color: #fff;
-		margin-bottom: 2rem;
+		margin-bottom: 60px;
     overflow-y: auto;
     overflow-x: hidden;
 
