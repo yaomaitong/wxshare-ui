@@ -56,7 +56,6 @@
       }
     };
 
-
   .head_img_container {
       padding-top: 30px;
       padding-bottom: 20px;
@@ -70,6 +69,6 @@
   }
 
   .page.has-navbar .page-content {
-    padding-top: 44px;
+    // margin-top: 44px;
   }
 </style>

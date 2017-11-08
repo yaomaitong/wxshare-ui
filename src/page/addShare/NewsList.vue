@@ -1,20 +1,108 @@
 <template>
   <div class="page has-navbar" v-nav="{title: '选择新闻', showBackButton:true} ">
-      <div class="newslist_container page-content">
-        <li  v-for="item in newsListArr"  class="shop_li">
-            <img :src="item.previewImg.middle" class="news_img">
-            <span>
-                  <div :class="item.postType == 2 ? 'premium': ''" class="news_title"> {{item.postTitle}} </div>
-                  <div class="news_desc">{{item.postExcerpt}}</div>
-                  <div class="news_time">{{item.postDate}}</div>
-            </span>
-            <span style="color:#fff">_______</span>
-            <md-button class="news_choose" :class="isChosen(item) ? 'select': 'unselect'" @click.native='choose(item)'></md-button>
-        </li>
-    </div>
+      <scroll  class="newslist_container page-content"
+        :on-infinite="onInfinite">
+
+          <li  v-for="item in newsListArr"  class="shop_li">
+              <img :src="item.previewImg.middle" class="news_img">
+              <span>
+                    <div :class="item.postType == 2 ? 'premium': ''" class="news_title"> {{item.postTitle}} </div>
+                    <div class="news_desc">{{item.postExcerpt}}</div>
+                    <div class="news_time">{{item.postDate}}</div>
+              </span>
+              <span style="color:#fff">_______</span>
+              <md-button class="news_choose" :class="isChosen(item) ? 'select': 'unselect'" @click.native='choose(item)'></md-button>
+          </li>
+          <div v-if="pageNo >= 3" slot="infinite" class="text-center">没有更多数据</div>
+      </scroll>
     <ConfirmButton btnTitle="确定" :submit='submitInfo' />
   </div>
 </template>
+
+<script>
+
+import {newsList} from 'src/service/getData'
+export default{
+    data(){
+        return {
+          pageNo: 1,
+          newsListArr:[], // 店铺列表数据
+          chosenNews : this.$store.state.chosenNews,//这里好像不管用？？？
+        }
+    },
+    mounted (){
+        this.initData();
+    },
+    methods : {
+      onInfinite(done) {
+        setTimeout(() => {
+          if (this.pageNo < 3) {
+            // let start = this.bottom + 1
+            // for (let i = start; i < start + 10; i++) {
+            //   this.items.push(i + ' - keep walking, be 2 with you.')
+            // }
+            // this.bottom = this.bottom + 10;
+
+            this.pageNo++
+            this.loadData()
+          }
+
+          done()
+        }, 1500)
+      },
+      indexOfArr (array, val) {
+        for (var i = 0; i < array.length; i++) {
+          var obj = array[i]
+          if (obj.id == val.id) return i;
+        }
+        return -1;
+      },
+      isChosen (item) {
+        for(var i = 0;i < this.chosenNews.length; i++) {
+          var obj = this.chosenNews[i]
+            if(obj.id == item.id)
+                return true;
+        }
+        return false;
+      },
+      choose (item) {
+        if (this.isChosen(item)) {
+          $toast.show('didChosen')
+            var index = this.indexOfArr(this.chosenNews, item)
+            if (index > -1) {
+                this.chosenNews.splice(index, 1);
+            }
+        } else {
+          $toast.show('push')
+            this.chosenNews.push(item);
+        }
+      },
+      submitInfo () {
+        //提交新闻
+        this.$store.commit('setChosenNews', this.chosenNews)
+        $router.back('/addShare')
+      },
+      loadData () {
+        //获取数据
+        var url = 'http://web1.robintse.cn/v1/news_list?page='+ this.pageNo + '&page_size=20'
+        this.$http.get(url).then(response => {
+            var res = response.body
+            if (res.code == 0) {
+                this.newsListArr = this.newsListArr.concat(res.data)
+            } else {
+                $toast.show(res.message)
+            }
+        }, response => {
+            $toast.show(response.body)
+        });
+      },
+        async initData () {
+            this.pageNo = 1
+            this.loadData();
+        }
+    }
+}
+</script>
 
 <style lang="scss" scoped>
 	@import 'src/style/mixin';
@@ -23,6 +111,7 @@
 		margin-bottom: 60px;
     overflow-y: auto;
     overflow-x: hidden;
+    margin-top: 44px;
 	}
 
 	.shop_li {
@@ -83,68 +172,3 @@
   }
 
 </style>
-
-<script>
-
-import {newsList} from 'src/service/getData'
-export default{
-    data(){
-        return {
-          pageNo: 1,
-          pageSize: 20,
-          newsListArr:[], // 店铺列表数据
-          chosenNews : this.$store.state.chosenNews,//这里好像不管用？？？
-        }
-    },
-    mounted (){
-        this.initData();
-    },
-    methods : {
-      indexOfArr (array, val) {
-        for (var i = 0; i < array.length; i++) {
-          var obj = array[i]
-          if (obj.id == val.id) return i;
-        }
-        return -1;
-      },
-      isChosen (item) {
-        for(var i = 0;i < this.chosenNews.length; i++) {
-          var obj = this.chosenNews[i]
-            if(obj.id == item.id)
-                return true;
-        }
-        return false;
-      },
-      choose (item) {
-        if (this.isChosen(item)) {
-          $toast.show('didChosen')
-            var index = this.indexOfArr(this.chosenNews, item)
-            if (index > -1) {
-                this.chosenNews.splice(index, 1);
-            }
-        } else {
-          $toast.show('push')
-            this.chosenNews.push(item);
-        }
-      },
-      submitInfo () {
-        //提交新闻
-        this.$store.commit('setChosenNews', this.chosenNews)
-        $router.back('/addShare')
-      },
-        async initData () {
-          //获取数据
-          this.$http.get('http://web1.robintse.cn/v1/news_list?page=1&page_size=20').then(response => {
-              var res = response.body
-              if (res.code == 0) {
-                  this.newsListArr = res.data
-              } else {
-                  $toast.show(res.message)
-              }
-          }, response => {
-              $toast.show(response.body)
-          });
-        }
-    }
-}
-</script>
