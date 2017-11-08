@@ -1,17 +1,17 @@
 <template>
-  <div class="page has-navbar" v-nav="{title: '药脉通分享'} ">
-      <div class="page-content">
-          <div class="head_img_container text-center">
-            <img  src="../../img/home.png" class="head_img" />
-            <p>
-              瓜皮
-            </p>
-          </div>
-          <div>
-              <cells class="cells-33" :items="entrances" :on-cell-click="onCellClick" row="2"></cells>
-          </div>
-      </div>
-  </div>
+    <div class="page has-navbar" v-nav="{title: '药脉通分享'} ">
+        <div class="page-content">
+            <div class="head_img_container text-center">
+              <img src="http://static.dingtalk.com/media/lADOAXFzyM0Cfs0CgA_640_638.jpg" class="head_img" />
+              <p>
+                瓜皮
+              </p>
+            </div>
+            <div>
+                <cells :items="entrances" :on-cell-click="onCellClick" row="2" col="2"></cells>
+            </div>
+        </div>
+    </div>
 </template>
 <script>
   export default {
@@ -58,8 +58,9 @@
 
 
   .head_img_container {
-      margin-top: 30px;
-      margin-bottom: 30px;
+      padding-top: 30px;
+      padding-bottom: 20px;
+      background-color: #4875de;
   }
 
   .head_img {

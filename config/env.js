@@ -7,7 +7,7 @@
  *
  */
 
-let baseUrl = 'http://api.yaomaitong.net/';
+let baseUrl = 'https://web1.robintse.cn/v1/';
 let routerMode = 'history';
 let imgBaseUrl = 'http://images.cangdu.org/';
 
@@ -15,6 +15,7 @@ if (process.env.NODE_ENV == 'development') {
 
 } else if (process.env.NODE_ENV == 'production'){
 
+	// https://web1.robintse.cn/v1/news_list?page=1&page_size=20
 }
 
 export {

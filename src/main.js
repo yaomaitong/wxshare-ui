@@ -2,11 +2,12 @@ import Vue from 'vue'
 import Vonic from 'vonic'
 import store from './store/store'
 
+import VueResource from 'vue-resource';
+Vue.use(VueResource);
+
+
 import ConfirmButton from 'src/components/ConfirmButton'
 Vue.component('ConfirmButton', ConfirmButton)
-
-// import CheckBox from 'src/components/CheckBox'
-// Vue.component('CheckBox', CheckBox)
 
 // Page Components
 import Index from './components/Index.vue'
@@ -40,5 +41,6 @@ Vue.use(Vonic.app, {
 // 新闻页面+设备页面的选择 ✅
 // 网络请求 ✅
 // 开关按钮的报错优化 ✅
-//新闻列表的样式调整+勾选选择存储
+//新闻列表的样式调整+勾选选择存储 ✅
 //web图片懒加载
+//上拉加载分页

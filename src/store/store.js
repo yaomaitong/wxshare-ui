@@ -6,12 +6,12 @@ Vue.use(Vuex)
 var state = {
     sourceType : '请选择',
     deviceCount : 0,
-
+    chosenNews : [],
     customShareInfo : {
         title : '',
         url : '',
         img : null
-    }
+    },
 }
 
 const mutations = {
@@ -21,6 +21,11 @@ const mutations = {
         state.customShareInfo.img = null
         state.sourceType = '请选择'
         state.deviceCount = 0
+        state.chosenNews = []
+    },
+    setChosenNews (state, array) {
+        state.chosenNews = array;
+        state.sourceType = '新闻列表'
     },
     setCustomShareInfo (state, {title, url, img}) {
         state.customShareInfo.title = title

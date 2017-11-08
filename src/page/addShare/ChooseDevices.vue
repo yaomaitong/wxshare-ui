@@ -31,7 +31,7 @@ export default {
           // $toast.show('选择设备个数'+ isAll + deviceCount)
 
           //返回上一页
-          // this.$router.go(-1);
+          this.$router.go(-1);
         },
         chooseAll () {
           //先清空已选择

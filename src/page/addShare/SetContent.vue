@@ -34,6 +34,13 @@
             }
           },
             methods: {
+              uploadImage () {
+                //
+
+                const formData = new FormData()
+                formData.append('file', this.picValue)
+                this.$http.post('https://web1.robintse.cn/v1/upload/image', formData).then()
+              },
               submitInfo(){
                 let title = this.inputTitle
                 let url = this.inputUrl

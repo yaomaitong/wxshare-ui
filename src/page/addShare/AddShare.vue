@@ -5,7 +5,7 @@
      showBackButton:true,
      onBackButtonClick: back
    }">
-    <div class="page-content">
+    <div class="page-content has_bottom_button">
       <list>
         <item class="item-icon-right" @click.native="onClick(0)">
           选择来源
@@ -34,7 +34,16 @@
             <div>
                 <img class="previewImg" src="../../img/home.png">
             </div>
-          </p>
+        </div>
+
+        <!-- 预览新闻选择信息 -->
+        <div class="padding item-icon-right preview" v-if="$store.state.sourceType == '新闻列表'">
+          <h5>已选择新闻:</h5>
+            <list v-for='item in $store.state.chosenNews'>
+                <p>
+                  {{ item.postTitle }}
+                </p>
+            </list>
         </div>
       </list>
       <ConfirmButton btnTitle="确定" :submit='submitInfo' />
@@ -80,6 +89,9 @@ export default {
 </script>
 
 <style>
+  .has_bottom_button {
+      margin-bottom: 60px;
+  }
   .toggle-force {
       position: absolute;
       right:5%;
