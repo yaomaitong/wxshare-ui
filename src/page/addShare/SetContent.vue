@@ -26,6 +26,7 @@
 
 
 <script>
+import {baseUrl} from '../../../config/env'
 
 // npm install vue-img-inputer -D
     import VueImgInputer from 'vue-img-inputer'
@@ -40,7 +41,7 @@
                 picValue : this.$store.state.customShareInfo.imgUrl
             }
           },
-            methods: {
+          methods: {
               onChange (file, fileName) {
                 $toast.show(fileName)
                 this.uploadImage()
@@ -48,7 +49,7 @@
               uploadImage () {
                 const formData = new FormData()
                 formData.append('file', this.picValue)
-                this.$http.post('http://web1.robintse.cn/v1/upload/image', formData).then(response => {
+                this.$http.post(baseUrl + 'v1/upload/image', formData).then(response => {
                     console.log(response);
                     var res = response.body
                     if (res.code == 0) {

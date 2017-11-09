@@ -5,8 +5,10 @@ Vue.use(Vuex)
 
 var state = {
     sourceType : '请选择',
-    deviceCount : 0,
+    deviceCount : '全部',
     chosenNews : [],
+    chosenDevices :[],
+    isAllDevice : true,
     customShareInfo : {
         title : '',
         url : '',
@@ -23,7 +25,8 @@ const mutations = {
         state.customShareInfo.url = ''
         state.customShareInfo.imgUrl = null
         state.sourceType = '请选择'
-        state.deviceCount = 0
+        state.deviceCount = '全部'
+        state.isAllDevice = true
         state.chosenNews = []
     },
     setChosenNews (state, array) {
@@ -35,8 +38,17 @@ const mutations = {
         state.customShareInfo.url = url
         state.sourceType = '手动设置'
     },
-    changeDeviceCount (state, count) {
-        state.deviceCount = count
+    changeChosenDevices (state, {devices, isAll}) {
+        state.chosenDevices = devices
+        console.log('======');
+        console.log(isAll);
+        if (isAll) {
+            state.deviceCount = '全部'
+            state.isAllDevice = true
+        } else {
+            state.deviceCount = devices.length + '台'
+            state.isAllDevice = false
+        }
     },
     changeIsAllDevice (state, isAll) {
         state.isAllDevice = isAll

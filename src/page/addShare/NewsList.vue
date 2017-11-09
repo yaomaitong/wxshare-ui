@@ -21,8 +21,8 @@
 </template>
 
 <script>
+import {baseUrl} from '../../../config/env'
 
-import {newsList} from 'src/service/getData'
 export default{
     data(){
         return {
@@ -77,7 +77,7 @@ export default{
       },
       loadData () {
         //获取数据
-        var url = 'http://web1.robintse.cn/v1/news_list?page='+ this.pageNo + '&page_size=20'
+        var url = baseUrl + 'v1/news_list?page='+ this.pageNo + '&page_size=20'
         this.$http.get(url).then(response => {
             var res = response.body
             if (res.code == 0) {
@@ -89,10 +89,10 @@ export default{
             $toast.show(response.body)
         });
       },
-        async initData () {
-            this.pageNo = 1
-            this.loadData();
-        }
+      async initData () {
+          this.pageNo = 1
+          this.loadData();
+      }
     }
 }
 </script>
