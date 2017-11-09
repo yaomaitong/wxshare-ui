@@ -21,7 +21,7 @@
           </div>
           <span class="icon ion-ios-arrow-right"></span>
         </item>
-        <von-toggle text="强制分享" v-model="isforce"></von-toggle>
+        <von-toggle text="强制分享" v-model="isforce" @change.native='change'></von-toggle>
 
         <!-- 预览手动设置的信息 -->
         <div class="padding item-icon-right preview" v-if="$store.state.sourceType == '手动设置'">
@@ -58,6 +58,9 @@ export default {
       }
     },
     methods: {
+        change () {
+            $toast.show('开关' + this.isforce)
+        },
         back () {
             //清除数据
             this.$store.commit('clear')
@@ -67,7 +70,7 @@ export default {
             if (index == 0) {
                 $router.forward('/chooseSource')
             } else if (index == 1) {
-                $router.forward('/chooseDevices')
+                $router.forward({path : '/chooseDevices', query : {type : 'choose'}})
             }
         },
         submitInfo () {

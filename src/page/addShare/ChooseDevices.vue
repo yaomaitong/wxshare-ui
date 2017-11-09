@@ -1,28 +1,65 @@
 <template>
   <div class="page has-navbar"
       v-nav="{
-          title: '选择设备',
+          title: this.type == 'set' ? '手机管理' : '选择设备',
           showBackButton:true,
-          showMenuButton: true,
+          showMenuButton: this.type == 'set' ? false : true,
           menuButtonText:'全选',
           onMenuButtonClick: chooseAll
         }">
+
     <div class="page-content text-left">
-      <von-checkbox :options="devices" v-model="chosenDevices" theme="positive"></von-checkbox>
-      <ConfirmButton btnTitle="确定" :submit='submitInfo' />
+      <!-- 设置页面 -->
+      <list>
+          <div v-for="item in devices">
+            <von-toggle v-if="type == 'set'" :text=item.name v-model=item.active  @change.native='change(item)'></von-toggle>
+            <item v-else @click.native='chooseDevice(item)' class="list_container">
+                {{ item.name }}
+                    <md-button class="btn_choose" :class="item.active ? 'select': 'unselect'"></md-button>
+            </item>
+          </div>
+      </list>
+      <!-- 选择页面 -->
+      <div v-if="type == 'choose'">
+        <!-- <von-checkbox :options="devices" v-model="chosenDevices" theme="positive"></von-checkbox> -->
+        <ConfirmButton btnTitle="确定" :submit='submitInfo' />
+      </div>
+
     </div>
   </div>
 </template>
+
+
+<style lang="scss">
+@import '../../style/public.scss';
+
+.list_container {
+    position: relative;
+}
+
+</style>
 
 <script>
 export default {
     data () {
       return {
+          type : '',
+          isforce : false,
           chosenDevices: [],
-          devices: ['小米1' , '小米2', '小米3']//接口获取后把需要显示的相关信息提取出来
+          devices: [{'name' : '小米1', 'active' : false } , {'name' : '小米1', 'active' : false }, {'name' : '小米1', 'active' : false }]//接口获取后把需要显示的相关信息提取出来
       }
     },
+    created(){
+      this.type = this.$route.query.type;
+    },
     methods : {
+        chooseDevice(item) {
+            // $toast.show(item)
+            item.active = !item.active
+        },
+        change(item) {
+            $toast.show(item)
+        },
         submitInfo () {
           let deviceCount = this.chosenDevices.length
           this.$store.commit('changeDeviceCount', deviceCount)
@@ -37,7 +74,9 @@ export default {
           //先清空已选择
           this.chosenDevices.splice(0,this.chosenDevices.length);
           for (var i = 0; i < this.devices.length; i++) {
-              this.chosenDevices.push(i);
+            var item = this.devices[i]
+            item.active = true
+              // this.chosenDevices.push(i);
           }
         }
     }

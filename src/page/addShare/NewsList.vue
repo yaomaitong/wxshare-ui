@@ -3,7 +3,7 @@
       <scroll  class="newslist_container page-content"
         :on-infinite="onInfinite">
 
-          <li  v-for="item in newsListArr"  class="shop_li">
+          <li v-for="item in newsListArr"  class="shop_li" @click='choose(item)'>
               <img :src="item.previewImg.middle" class="news_img">
               <span>
                     <div :class="item.postType == 2 ? 'premium': ''" class="news_title"> {{item.postTitle}} </div>
@@ -11,7 +11,8 @@
                     <div class="news_time">{{item.postDate}}</div>
               </span>
               <span style="color:#fff">_______</span>
-              <md-button class="news_choose" :class="isChosen(item) ? 'select': 'unselect'" @click.native='choose(item)'></md-button>
+              <!-- @click.native='choose(item)' -->
+              <md-button class="btn_choose" :class="isChosen(item) ? 'select': 'unselect'" ></md-button>
           </li>
           <div v-if="pageNo >= 3" slot="infinite" class="text-center">没有更多数据</div>
       </scroll>
@@ -37,12 +38,6 @@ export default{
       onInfinite(done) {
         setTimeout(() => {
           if (this.pageNo < 3) {
-            // let start = this.bottom + 1
-            // for (let i = start; i < start + 10; i++) {
-            //   this.items.push(i + ' - keep walking, be 2 with you.')
-            // }
-            // this.bottom = this.bottom + 10;
-
             this.pageNo++
             this.loadData()
           }
@@ -103,6 +98,8 @@ export default{
 </script>
 
 <style lang="scss" scoped>
+@import '../../style/public.scss';
+
 	@import 'src/style/mixin';
 	.newslist_container {
 		background-color: #fff;
@@ -150,23 +147,6 @@ export default{
       padding: 0 0.1rem;
       border-radius: 0.1rem;
       margin-right: 0.2rem;
-  }
-
-  .news_choose {
-      @include wh(25px, 25px);
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      right: 15px;
-      background-color: #fff;
-      background-size: 25px 25px;
-  }
-
-  .select {
-    background-image: url(../../img/select.png);
-  }
-  .unselect {
-    background-image: url(../../img/unselect.png);
   }
 
 </style>

@@ -1,0 +1,16 @@
+.btn_choose {
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 15px;
+    background-color: #fff;
+    background-size: 25px 25px;
+}
+.select {
+  background-image: url(../../img/select.png);
+}
+.unselect {
+  background-image: url(../../img/unselect.png);
+}

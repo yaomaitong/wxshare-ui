@@ -30,9 +30,8 @@
         if (obj == 0) {
             $router.forward('/addShare')
         } else if (obj == 2) {
-            $router.forward('/chooseDevices')
+            $router.forward({path : '/chooseDevices', query : {type : 'set'}})
         }
-        // $toast.show("item clicked.")
       }
     }
   }
