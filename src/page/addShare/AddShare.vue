@@ -24,28 +24,46 @@
         <von-toggle text="强制分享" v-model="isforce" @change.native='change'></von-toggle>
 
         <!-- 预览手动设置的信息 -->
-        <div class="padding item-icon-right preview" v-if="$store.state.sourceType == '手动设置'">
-            <h5>手动设置信息预览:</h5>
-            标题:{{$store.state.customShareInfo.title}}
-            <br>
-            网址:{{$store.state.customShareInfo.url}}
-            <br>
-            图片:
-                <img class="previewImg" :src="$store.state.customShareInfo.imgUrl">
-        </div>
+        <list v-if="$store.state.sourceType == '手动设置'">
+          <div class="item item-divider">
+            手动设置信息预览:
+          </div>
+          <item>
+            标题
+            <span class="item-note">
+                {{$store.state.customShareInfo.title}}
+            </span>
+          </item>
+          <item>
+              网址
+            <span class="item-note">
+                {{$store.state.customShareInfo.url}}
+            </span>
+          </item>
+          <item>
+              图片
+              <span>
+                  <img class="previewImg" :src="$store.state.customShareInfo.imgUrl">
+              </span>
+          </item>
+        </list>
 
         <!-- 预览新闻选择信息 -->
-        <div class="padding item-icon-right preview" v-if="$store.state.sourceType == '新闻列表'">
-          <h5>已选择新闻:</h5>
-            <list v-for='item in $store.state.chosenNews'>
-                <p>
-                  {{ item.postTitle }}
-                </p>
-            </list>
-        </div>
+        <list v-if="$store.state.sourceType == '新闻列表'">
+            <div class="item item-divider">
+                已选择新闻:
+            </div>
+            <item v-for='item in $store.state.chosenNews'>
+              <img class="news_icon" :src=item.previewImg.middle />
+              <span class="news_title">
+                {{ item.postTitle }}
+              </span>
+            </item>
+        </list>
+        
       </list>
-      <ConfirmButton btnTitle="确定" :submit='submitInfo' />
     </div>
+    <ConfirmButton btnTitle="确定" :submit='submitInfo' />
   </div>
 </template>
 
@@ -102,9 +120,25 @@ export default {
       height: 1.5rem;
   };
   .preview {
+      margin-top: 10px;
       background-color: #ffffff;
   };
   .previewImg {
-    width: 30%;
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  .news_icon {
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  .news_title {
+      margin-left: 30px;
   }
 </style>

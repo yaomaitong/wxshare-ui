@@ -19,8 +19,8 @@
               </div>
             </item>
       </list>
-      <ConfirmButton btnTitle="确定" :submit='submitInfo' />
     </div>
+    <ConfirmButton btnTitle="确定" :submit='submitInfo' />
   </div>
 </template>
 

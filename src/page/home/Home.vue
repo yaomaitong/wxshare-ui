@@ -58,7 +58,7 @@
   .head_img_container {
       padding-top: 30px;
       padding-bottom: 20px;
-      background-color: #4875de;
+      // background-color: #4875de;
   }
 
   .head_img {

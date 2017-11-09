@@ -11,8 +11,8 @@
           <span class="icon ion-ios-arrow-right"></span>
         </item>
       </list>
-      <ConfirmButton :submit='submitInfo' />
     </div>
+    <ConfirmButton :submit='submitInfo' />
   </div>
 </template>
 

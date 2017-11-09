@@ -117,7 +117,8 @@ export default{
     position: relative;
 	}
 	.news_img{
-		@include wh(70px, 70px);
+    width: 70px;
+    height: 70px;
 		display: block;
 		margin-right: 0.4rem;
 	}
@@ -137,7 +138,7 @@ export default{
       font-size: 11px;
   }
 
-  .premium::before{
+  .premium::bevfore{
       content: '热点';
       display: inline-block;
       font-size: 0.5rem;

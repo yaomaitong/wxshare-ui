@@ -19,12 +19,10 @@
             </item>
           </div>
       </list>
-      <!-- 选择页面 -->
-      <div v-if="type == 'choose'">
-        <!-- <von-checkbox :options="devices" v-model="chosenDevices" theme="positive"></von-checkbox> -->
-        <ConfirmButton btnTitle="确定" :submit='submitInfo' />
-      </div>
-
+    </div>
+    <div v-if="type == 'choose'">
+      <!-- <von-checkbox :options="devices" v-model="chosenDevices" theme="positive"></von-checkbox> -->
+      <ConfirmButton btnTitle="确定" :submit='submitInfo' />
     </div>
   </div>
 </template>
