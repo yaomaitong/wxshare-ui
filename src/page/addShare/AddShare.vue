@@ -31,9 +31,7 @@
             网址:{{$store.state.customShareInfo.url}}
             <br>
             图片:
-            <div>
-                <img class="previewImg" src="../../img/home.png">
-            </div>
+                <img class="previewImg" :src="$store.state.customShareInfo.imgUrl">
         </div>
 
         <!-- 预览新闻选择信息 -->

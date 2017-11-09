@@ -67,13 +67,11 @@ export default{
       },
       choose (item) {
         if (this.isChosen(item)) {
-          $toast.show('didChosen')
             var index = this.indexOfArr(this.chosenNews, item)
             if (index > -1) {
                 this.chosenNews.splice(index, 1);
             }
         } else {
-          $toast.show('push')
             this.chosenNews.push(item);
         }
       },
