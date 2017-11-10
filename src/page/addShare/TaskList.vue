@@ -1,20 +1,14 @@
 <template>
   <div class="page has-navbar" v-nav="{title: '任务列表', showBackButton:true} ">
       <div class="page-content">
-        <li>
-          <router-link :to="{path: '/taskProcess', query:{taskid:task.id}}" v-for="task in this.taskListArr" class="task_list">
-              <img class="task_li_img" :src=task.user_avatar />
-              <div>
-                <span>{{task.user_name}}({{task.user_id}})</span>
-              </div>
-              <section>
-                <span>创建时间:{{task.created}}</span>
-              </section>
-          </router-link>
-        </li>
-
+        <router-link :to="{path: '/taskProcess', query:{taskid:task.id}}" v-for="task in this.taskListArr" class="task_list">
+            <img class="task_li_img" :src=task.user_avatar />
+            <div>
+              <span>{{task.user_name}}({{task.user_id}})</span>
+            </div>
+              <span>创建时间:{{task.created}}</span>
+        </router-link>
       </div>
-
   </div>
 </template>
 
@@ -39,7 +33,7 @@
 </style>
 
 <script>
-    import {baseUrl} from '../../../config/env'
+    import {baseUrl} from '../../config/env'
 
     export default {
         data () {

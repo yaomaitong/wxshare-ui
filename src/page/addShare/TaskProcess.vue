@@ -46,7 +46,7 @@
 
 
 <script>
-import {baseUrl} from '../../../config/env'
+import {baseUrl} from '../../config/env'
 
 export default {
   data () {

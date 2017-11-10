@@ -28,7 +28,7 @@
 
 
 <script>
-import {baseUrl} from '../../../config/env'
+import {baseUrl} from '../../config/env'
 
 // npm install vue-img-inputer -D
     import VueImgInputer from 'vue-img-inputer'
