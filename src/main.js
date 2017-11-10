@@ -23,8 +23,7 @@ import TaskList from './page/addShare/TaskList.vue'
 
 // Routes
 const routes = [
-  // ?userid=3403048125&username=天龙&useravatar=http://static.dingtalk.com/media/lADOAXFzyM0Cfs0CgA_640_638.jpg
-  {path: '/', component: Index},//query : {userId:3403048125, username:'瓜皮'}
+  {path: '/', component: Index},
   {path: '/about', component: About},
   {path: '/login', component: Login},
   {path: '/addShare', component: AddShare},
@@ -34,7 +33,6 @@ const routes = [
   {path: '/setContent', component: SetContent},
   {path: '/taskProcess', component: TaskProcess},
   {path: '/taskList', component: TaskList}
-
 ]
 
 Vue.use(Vonic.app, {
