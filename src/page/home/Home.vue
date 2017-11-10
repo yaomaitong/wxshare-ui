@@ -25,6 +25,8 @@
             ]
       }
     },
+    // mounted () {
+    // },
     methods: {
       onCellClick (obj) {
         if (obj == 0) {

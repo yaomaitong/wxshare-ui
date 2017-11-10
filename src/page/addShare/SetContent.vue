@@ -4,6 +4,8 @@
       <list>
         <von-input type="text" v-model="inputUrl" placeholder="请输入分享的网址" label="网址" floating-label="true"></von-input>
         <von-input type="text" v-model="inputTitle" placeholder="请输入分享的标题" label="标题" floating-label="true"></von-input>
+        <von-input type="text" v-model="inputDesc" placeholder="请输入分享的描述" label="描述" floating-label="true"></von-input>
+
         <item class="item-icon-right">
           图片
             <div style="margin-top:0.5rem; margin-bottom:1.0rem">
@@ -38,6 +40,7 @@ import {baseUrl} from '../../../config/env'
             return {
                 inputUrl : this.$store.state.customShareInfo.url,
                 inputTitle : this.$store.state.customShareInfo.title,
+                inputDesc : this.$store.state.customShareInfo.desc,
                 picValue : this.$store.state.customShareInfo.imgUrl
             }
           },
@@ -47,35 +50,37 @@ import {baseUrl} from '../../../config/env'
                 this.uploadImage()
               },
               uploadImage () {
+                $loading.show('正在上传图片...')
                 const formData = new FormData()
                 formData.append('file', this.picValue)
                 this.$http.post(baseUrl + 'v1/upload/image', formData).then(response => {
                     console.log(response);
                     var res = response.body
+                    $loading.hide()
                     if (res.code == 0) {
                         var data = res.data
                         var url = data.image
                         //还得做一下再次进入时候的预览
                         console.log('data.image' + url);
                         this.$store.commit('setImageUrl', url)
+                        $toast.show('上传成功')
+                    } else {
+                        $toast.show('操作失败' + res.message)
                     }
                 }, response => {
+                    $loading.hide()
+                    $toast.show('操作失败,请查看consolelog')
                     console.log(response);
                 });
               },
               submitInfo(){
                 let title = this.inputTitle
                 let url = this.inputUrl
+                let desc = this.inputDesc
                 if (title && url) {
-                  let img = this.picValue
-                  if (img) {
-                    //提示图片size
-                    // let size = this.picValue.size / 1024 / 1024
-                    // size = size.toFixed(2)
-                    // $toast.show('图片大小'+ size + 'M')
-
+                  if (this.$store.state.customShareInfo.imgUrl) {
                     //图片选择完立马上传获取到url 再存储
-                    this.$store.commit('setCustomShareInfo', {title, url})
+                    this.$store.commit('setCustomShareInfo', {title, url, desc})
                     //如果需要返回效果  使用
                      $router.back({ path: '/addShare' })
                      //推出效果

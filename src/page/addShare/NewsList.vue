@@ -82,6 +82,7 @@ export default{
             var res = response.body
             if (res.code == 0) {
                 this.newsListArr = this.newsListArr.concat(res.data)
+                console.log(res.data);
             } else {
                 $toast.show(res.message)
             }

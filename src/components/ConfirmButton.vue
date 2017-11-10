@@ -38,5 +38,6 @@
       font-size: 18px;
       text-align: center;
       line-height: 44px;
+      z-index: 9;
     }
 </style>

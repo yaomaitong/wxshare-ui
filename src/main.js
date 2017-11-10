@@ -4,6 +4,7 @@ import store from './store/store'
 
 import VueResource from 'vue-resource';
 Vue.use(VueResource);
+// Vue.http.headers.common['userId'] = '3403048125'
 
 
 import ConfirmButton from 'src/components/ConfirmButton'

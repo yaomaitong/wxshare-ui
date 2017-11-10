@@ -35,6 +35,12 @@
             </span>
           </item>
           <item>
+            描述
+            <span class="item-note">
+                {{$store.state.customShareInfo.desc}}
+            </span>
+          </item>
+          <item>
               网址
             <span class="item-note">
                 {{$store.state.customShareInfo.url}}
@@ -60,7 +66,7 @@
               </span>
             </item>
         </list>
-        
+
       </list>
     </div>
     <ConfirmButton btnTitle="确定" :submit='submitInfo' />
@@ -68,6 +74,7 @@
 </template>
 
 <script>
+import {baseUrl} from '../../../config/env'
 
 export default {
     data() {
@@ -77,7 +84,7 @@ export default {
     },
     methods: {
         change () {
-            $toast.show('开关' + this.isforce)
+            // $toast.show('开关' + this.isforce)
         },
         back () {
             //清除数据
@@ -100,9 +107,94 @@ export default {
                 $toast.show('请选择分享的设备')
                 return
             }
+            var contentArr = []
+            if (this.$store.state.sourceType == '手动设置') {
+                var content = {'id':0,
+                                "type": "manual",
+                                "title":this.$store.state.customShareInfo.title,
+                                "image_url":this.$store.state.customShareInfo.imgUrl,
+                                "url":this.$store.state.customShareInfo.url,
+                                "desc":this.$store.state.customShareInfo.desc,
+                                "force_share": this.isforce
+                              }
+                contentArr.push(content)
+            } else {
+                for (var i = 0; i < this.$store.state.chosenNews.length; i++) {
+                      var news = this.$store.state.chosenNews[i]
+                      var content = {'id':news.id,
+                                      "type": "news",
+                                      "title":news.postTitle,
+                                      "image_url":news.previewImg.middle,
+                                      "url":news.url,
+                                      "force_share": this.isforce,
+                                      "desc":news.postExcerpt
+                                    }
+                      contentArr.push(content)
+                }
+            }
 
-            $toast.show('OK,强制分享:' + this.isforce + ',可以提交了')
-        }
+            var deviceArr = []
+            if (this.$store.state.isAllDevice == false) {
+                for (var i = 0; i < this.$store.state.chosenDevices.length; i++) {
+                    var device = this.$store.state.chosenDevices[i]
+                    deviceArr.push(device.id)
+                }
+            }
+
+            var sendParams = {
+              'contents':contentArr, 'push_devices': deviceArr,
+            }
+            // 'contents':JSON.stringify(contentArr), 'push_devices': JSON.stringify(deviceArr),
+
+            console.log(sendParams);
+
+            var url = baseUrl + 'v1/task/create'
+
+            // + '?userId=3403048125'
+
+            var xmlhttp;
+            if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
+                xmlhttp=new XMLHttpRequest();
+            } else {// code for IE6, IE5
+                xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            xmlhttp.onreadystatechange = function() {
+              if (xmlhttp.readyState==4 && xmlhttp.status==200) {
+                  $toast.show ('请求成功' + xmlhttp.responseText)
+              } else {
+                  $toast.show ('请求失败')
+              }
+            }
+            xmlhttp.open("POST",url,true);
+            // xmlhttp.setRequestHeader("Content-type","application/json;charset=UTF-8");
+            // xmlhttp.setRequestHeader("userId","3403048125");
+            xmlhttp.send(JSON.stringify(sendParams));
+
+
+            // this.$http.post(url, JSON.stringify(sendParams)
+            //         , {
+                      // responseType: "json"
+                    // emulateJSON: true,
+                    // headers: {'processData': false},
+                    // before: function(request){
+                    //   // request.headers.set('processData', false);
+                    //   request.headers.set('content-type', 'application/json');
+                    //
+                    // }
+            //   }
+            // ).then(response => {
+            //           var res = response.body
+            //           console.log(res);
+            //           if (res.code == 0) {
+            //               $toast.show('操作成功')
+            //           } else {
+            //               $toast.show('操作失败' + res.message)
+            //           }
+            //       }, response => {
+            //           $toast.show('操作失败,请查看consolelog')
+            //           console.log(response);
+            // });
+         }
     }
 }
 </script>

@@ -12,6 +12,7 @@ var state = {
     customShareInfo : {
         title : '',
         url : '',
+        desc : '',
         imgUrl : null
     },
 }
@@ -33,9 +34,10 @@ const mutations = {
         state.chosenNews = array;
         state.sourceType = '新闻列表'
     },
-    setCustomShareInfo (state, {title, url}) {
+    setCustomShareInfo (state, {title, url, desc}) {
         state.customShareInfo.title = title
         state.customShareInfo.url = url
+        state.customShareInfo.desc = desc
         state.sourceType = '手动设置'
     },
     changeChosenDevices (state, {devices, isAll}) {

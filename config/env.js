@@ -7,7 +7,8 @@
  *
  */
 
-let baseUrl = 'http://web1.robintse.cn/';
+let baseUrl = 'http://192.168.50.16:9000/'
+//'http://web1.robintse.cn/';
 let routerMode = 'history';
 let imgBaseUrl = 'http://images.cangdu.org/';
 
