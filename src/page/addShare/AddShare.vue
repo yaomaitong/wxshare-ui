@@ -109,7 +109,8 @@ export default {
             }
             var contentArr = []
             if (this.$store.state.sourceType == '手动设置') {
-                var content = {'id':0,
+                var content = {
+                                "id": '0',
                                 "type": "manual",
                                 "title":this.$store.state.customShareInfo.title,
                                 "image_url":this.$store.state.customShareInfo.imgUrl,
@@ -121,7 +122,7 @@ export default {
             } else {
                 for (var i = 0; i < this.$store.state.chosenNews.length; i++) {
                       var news = this.$store.state.chosenNews[i]
-                      var content = {'id':news.id,
+                      var content = { "id":news.id,
                                       "type": "news",
                                       "title":news.postTitle,
                                       "image_url":news.previewImg.middle,
@@ -141,59 +142,23 @@ export default {
                 }
             }
 
-            var sendParams = {
-              'contents':contentArr, 'push_devices': deviceArr,
-            }
-            // 'contents':JSON.stringify(contentArr), 'push_devices': JSON.stringify(deviceArr),
-
-            console.log(sendParams);
-
-            var url = baseUrl + 'v1/task/create'
-
-            // + '?userId=3403048125'
-
-            var xmlhttp;
-            if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
-                xmlhttp=new XMLHttpRequest();
-            } else {// code for IE6, IE5
-                xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-            }
-            xmlhttp.onreadystatechange = function() {
-              if (xmlhttp.readyState==4 && xmlhttp.status==200) {
-                  $toast.show ('请求成功' + xmlhttp.responseText)
-              } else {
-                  $toast.show ('请求失败')
-              }
-            }
-            xmlhttp.open("POST",url,true);
-            // xmlhttp.setRequestHeader("Content-type","application/json;charset=UTF-8");
-            // xmlhttp.setRequestHeader("userId","3403048125");
-            xmlhttp.send(JSON.stringify(sendParams));
-
-
-            // this.$http.post(url, JSON.stringify(sendParams)
-            //         , {
-                      // responseType: "json"
-                    // emulateJSON: true,
-                    // headers: {'processData': false},
-                    // before: function(request){
-                    //   // request.headers.set('processData', false);
-                    //   request.headers.set('content-type', 'application/json');
-                    //
-                    // }
-            //   }
-            // ).then(response => {
-            //           var res = response.body
-            //           console.log(res);
-            //           if (res.code == 0) {
-            //               $toast.show('操作成功')
-            //           } else {
-            //               $toast.show('操作失败' + res.message)
-            //           }
-            //       }, response => {
-            //           $toast.show('操作失败,请查看consolelog')
-            //           console.log(response);
-            // });
+            var sendParams = {'contents':contentArr, 'push_devices': deviceArr}
+            var url = baseUrl + 'v1/task/create' + '?userId=3403048125'
+            this.$http.post(url, sendParams)
+            .then(response => {
+                var res = response.body
+                console.log(res);
+                if (res.code == 0) {
+                    var taskId = res.data.task_id
+                    $router.forward({path : '/taskProcess', query : {taskid : taskId}})
+                    // $toast.show('操作成功:'+res.data)
+                } else {
+                    $toast.show('操作失败' + res.message)
+                }
+            }, response => {
+                $toast.show('操作失败,请查看consolelog')
+                console.log(response);
+            });
          }
     }
 }

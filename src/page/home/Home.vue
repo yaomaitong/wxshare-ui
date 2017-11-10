@@ -2,9 +2,9 @@
     <div class="page has-navbar" v-nav="{title: '药脉通分享'} ">
         <div class="page-content">
             <div class="head_img_container text-center">
-              <img src="http://static.dingtalk.com/media/lADOAXFzyM0Cfs0CgA_640_638.jpg" class="head_img" />
+              <img :src=this.$store.state.user.avatar class="head_img" />
               <p>
-                瓜皮
+                {{this.$store.state.user.name }}
               </p>
             </div>
             <div>
@@ -25,14 +25,29 @@
             ]
       }
     },
-    // mounted () {
-    // },
+    created () {
+        console.log(this.$route.query);
+        var userId = this.$route.query.userid
+        var userName = this.$route.query.username
+        var userAvatar = this.$route.query.useravatar
+        this.$store.commit('setUserInfo', {id:userId, name:userName, avatar:userAvatar})
+    },
     methods: {
       onCellClick (obj) {
-        if (obj == 0) {
-            $router.forward('/addShare')
-        } else if (obj == 2) {
-            $router.forward({path : '/chooseDevices', query : {type : 'set'}})
+        switch (obj) {
+          case 0:
+              $router.forward('/addShare')
+            break;
+          case 1:
+              $router.forward('/taskList')
+            break;
+          case 2:
+              $router.forward({path : '/chooseDevices', query : {type : 'set'}})
+            break;
+          case 3:
+              $router.forward({path : '/chooseDevices', query : {type : 'set'}})
+            break;
+          default:
         }
       }
     }
@@ -67,9 +82,5 @@
       width: 100px;
       height: 100px;
       border-radius: 50%;
-  }
-
-  .page.has-navbar .page-content {
-    // margin-top: 44px;
   }
 </style>

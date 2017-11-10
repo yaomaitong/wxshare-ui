@@ -64,7 +64,7 @@ export default {
           devices: [],
       }
     },
-    created(){
+    created () {
       this.type = this.$route.query.type;
     },
     mounted () {

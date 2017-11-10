@@ -4,6 +4,11 @@ import Vuex from 'vuex'
 Vue.use(Vuex)
 
 var state = {
+    user: {
+      id:'',
+      name: '',
+      avatar:'',
+    },
     sourceType : '请选择',
     deviceCount : '全部',
     chosenNews : [],
@@ -20,6 +25,13 @@ var state = {
 const mutations = {
     setImageUrl (state, url) {
         state.customShareInfo.imgUrl = url;
+    },
+    setUserInfo (state, {id, name, avatar}) {
+        state.user.id = id
+        state.user.name = name
+        state.user.avatar = avatar
+        console.log('=====user:');
+        console.log(state.user);
     },
     clear (state) {
         state.customShareInfo.title = ''

@@ -2,11 +2,10 @@
   <div class="page has-navbar" v-nav="{title: '选择新闻', showBackButton:true} ">
       <scroll  class="newslist_container page-content"
         :on-infinite="onInfinite">
-
           <li v-for="item in newsListArr"  class="shop_li" @click='choose(item)'>
               <img :src="item.previewImg.middle" class="news_img">
               <span>
-                    <div :class="item.postType == 2 ? 'premium': ''" class="news_title"> {{item.postTitle}} </div>
+                    <div :class="item.postType == '2' ? 'premium': ''" class="news_li_title"> {{item.postTitle}} </div>
                     <div class="news_desc">{{item.postExcerpt}}</div>
                     <div class="news_time">{{item.postDate}}</div>
               </span>
@@ -99,8 +98,7 @@ export default{
 </script>
 
 <style lang="scss" scoped>
-@import '../../style/public.scss';
-
+  @import '../../style/public.scss';
 	@import 'src/style/mixin';
 	.newslist_container {
 		background-color: #fff;
@@ -123,7 +121,7 @@ export default{
 		display: block;
 		margin-right: 0.4rem;
 	}
-  .news_title {
+  .news_li_title {
       font-weight: bold;
       color: #333;
   }
@@ -139,7 +137,7 @@ export default{
       font-size: 11px;
   }
 
-  .premium::bevfore{
+  .premium::before{
       content: '热点';
       display: inline-block;
       font-size: 0.5rem;
