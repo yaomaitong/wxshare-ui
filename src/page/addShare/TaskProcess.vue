@@ -103,9 +103,9 @@ export default {
                     //一小时以内的才重新请求
                     if (secs < 60 * 60 * 1000) {
                         console.log('3s后下一次刷新');
-                        // setTimeout(() => {
-                        //     this.loadData()
-                        // }, 3000)
+                        setTimeout(() => {
+                            this.loadData()
+                        }, 3000)
                     } else {
                         console.log('任务超出1小时');
                     }

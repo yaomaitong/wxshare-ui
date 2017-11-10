@@ -13,7 +13,7 @@
           <div v-for="item in devices">
             <!-- 设置页面 -->
             <div v-if="(promotionIndex == 1 && item.status == true) || (promotionIndex == 0 && item.status == false)">
-                <von-toggle v-if="type == 'set'" :text=item.device_alias v-model=item.status  @change.native='activeDevice(item)'></von-toggle>
+                <von-toggle v-if="type == 'set'" :text=item.device_alias v-model=item.status  @click.native='activeDevice(item)'></von-toggle>
             </div>
 
             <!-- 选择页面 -->
@@ -117,9 +117,11 @@ export default {
                     item.status = toActive
                     $toast.show('操作成功')
                 } else {
+                    $toast.show('操作失败'+res.message)
                     item.status = !toActive
                 }
             }, response => {
+                $toast.show(response)
                 item.status = false
                 console.log(response);
             });
@@ -158,6 +160,7 @@ export default {
             var url = baseUrl + 'v1/device/list'
             this.$http.get(url).then(response => {
                 var res = response.body
+                console.log(res);
                 if (res.code == 0) {
                     if (this.type == 'choose') {
                       for (var i = 0; i < res.data.length; i++) {
