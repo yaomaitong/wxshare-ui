@@ -13,7 +13,7 @@
           <div v-for="item in devices">
             <!-- 设置页面 -->
             <div v-if="(promotionIndex == 1 && item.status == true) || (promotionIndex == 0 && item.status == false)">
-                <von-toggle v-if="type == 'set'" :text=item.device_alias v-model=item.status  @click.native='activeDevice(item)'></von-toggle>
+                <von-toggle v-if="type == 'set'" :text=item.device_alias v-model='item.status'  @click.native='activeDevice(item)'></von-toggle>
             </div>
 
             <!-- 选择页面 -->
@@ -103,6 +103,7 @@ export default {
             }
         },
         activeDevice (item) {
+            $toast.show('shouldActive:' + toActive);
             var toActive = item.status
             console.log('shouldActive:' + toActive);
             const formData = new FormData()

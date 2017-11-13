@@ -102,6 +102,7 @@ export default {
                     var secs = nowDate.getTime()-startDate.getTime()
                     //一小时以内的才重新请求
                     if (secs < 60 * 60 * 1000) {
+                        $toast.show('3s后下一次刷新')
                         console.log('3s后下一次刷新');
                         setTimeout(() => {
                             this.loadData()
