@@ -21,8 +21,31 @@ import SetContent from './page/addShare/SetContent.vue'
 import TaskProcess from './page/addShare/TaskProcess.vue'
 import TaskList from './page/addShare/TaskList.vue'
 
+const NotFoundComponent = { template: '<div style="font-size:40px; text-align:center; margin-top:100px">404 Not Found</div>' }
+
+// import VueRouter from 'vue-router'
+// Vue.use(VueRouter)
+
 // Routes
+// const router = new VueRouter({
+//   mode: 'history',
+//   routes: [
+//     {path: '*', component: NotFoundComponent },
+//     {path: '/', component: Index},
+//     {path: '/about', component: About},
+//     {path: '/login', component: Login},
+//     {path: '/addShare', component: AddShare},
+//     {path: '/chooseSource', component: ChooseSource},
+//     {path: '/chooseDevices', component: ChooseDevices},
+//     {path: '/newsList', component: NewsList},
+//     {path: '/setContent', component: SetContent},
+//     {path: '/taskProcess', component: TaskProcess},
+//     {path: '/taskList', component: TaskList}
+//   ]
+// })
+
 const routes = [
+  {path: '*', component: NotFoundComponent},
   {path: '/', component: Index},
   {path: '/about', component: About},
   {path: '/login', component: Login},
@@ -37,7 +60,7 @@ const routes = [
 
 Vue.use(Vonic.app, {
   routes : routes,
-  store : store
+  store : store,
 })
 
 // TODO:
