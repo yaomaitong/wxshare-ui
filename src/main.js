@@ -45,7 +45,7 @@ const NotFoundComponent = { template: '<div style="font-size:40px; text-align:ce
 // })
 
 const routes = [
-  {path: '*', component: NotFoundComponent},
+  // {path: '*', component: NotFoundComponent},
   {path: '/', component: Index},
   {path: '/about', component: About},
   {path: '/login', component: Login},
