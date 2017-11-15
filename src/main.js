@@ -13,9 +13,6 @@ Vue.use(ToggleButton)
 
 // Page Components
 import Index from './components/Index.vue'
-import About from './components/About.vue'
-import Login from './components/Login.vue'
-
 import AddShare from './page/addShare/AddShare.vue'
 import ChooseSource from './page/addShare/ChooseSource.vue'
 import ChooseDevices from './page/addShare/ChooseDevices.vue'
@@ -26,32 +23,9 @@ import TaskList from './page/addShare/TaskList.vue'
 
 const NotFoundComponent = { template: '<div style="font-size:40px; text-align:center; margin-top:100px">404 Not Found</div>' }
 
-// import VueRouter from 'vue-router'
-// Vue.use(VueRouter)
-
-// Routes
-// const router = new VueRouter({
-//   mode: 'history',
-//   routes: [
-//     {path: '*', component: NotFoundComponent },
-//     {path: '/', component: Index},
-//     {path: '/about', component: About},
-//     {path: '/login', component: Login},
-//     {path: '/addShare', component: AddShare},
-//     {path: '/chooseSource', component: ChooseSource},
-//     {path: '/chooseDevices', component: ChooseDevices},
-//     {path: '/newsList', component: NewsList},
-//     {path: '/setContent', component: SetContent},
-//     {path: '/taskProcess', component: TaskProcess},
-//     {path: '/taskList', component: TaskList}
-//   ]
-// })
-
 const routes = [
-  // {path: '*', component: NotFoundComponent},
+  {path: '*', component: NotFoundComponent},
   {path: '/', component: Index},
-  {path: '/about', component: About},
-  {path: '/login', component: Login},
   {path: '/addShare', component: AddShare},
   {path: '/chooseSource', component: ChooseSource},
   {path: '/chooseDevices', component: ChooseDevices},
@@ -62,6 +36,7 @@ const routes = [
 ]
 
 Vue.use(Vonic.app, {
+  mode: 'history',
   routes : routes,
   store : store,
 })

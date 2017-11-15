@@ -17,7 +17,7 @@
               <span>{{item.device_alias}}</span>
 
               <div class="device_toggle">
-                <toggle-button
+                <ToggleButton
                   v-model="item.status"
                   :width=70
                   :height=35

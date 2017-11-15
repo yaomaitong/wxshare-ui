@@ -97,6 +97,12 @@
   left: 0;
   right: 0;
 }
+.device_toggle {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+}
 
 @charset "UTF-8";
 .btn_choose[data-v-cf1f0c8a] {
@@ -117,7 +123,7 @@
 }
 .newslist_container[data-v-cf1f0c8a] {
   background-color: #fff;
-  margin-bottom: 60px;
+  margin-bottom: 44px;
   overflow-y: auto;
   overflow-x: hidden;
   margin-top: 44px;
@@ -210,4 +216,4 @@
   text-decoration: none;
 }
 
-/*# sourceMappingURL=app.f1abade91f667d0dd10a1ee26693837d.css.map*/
+/*# sourceMappingURL=app.1647381bc92c45c74432435472c06e5c.css.map*/

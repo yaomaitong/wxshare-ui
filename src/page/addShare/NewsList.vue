@@ -102,7 +102,7 @@ export default{
 	@import 'src/style/mixin';
 	.newslist_container {
 		background-color: #fff;
-		margin-bottom: 60px;
+		margin-bottom: 44px;
     overflow-y: auto;
     overflow-x: hidden;
     margin-top: 44px;
