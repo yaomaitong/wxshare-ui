@@ -21,10 +21,10 @@ import SetContent from './page/addShare/SetContent.vue'
 import TaskProcess from './page/addShare/TaskProcess.vue'
 import TaskList from './page/addShare/TaskList.vue'
 
-const NotFoundComponent = { template: '<div style="font-size:40px; text-align:center; margin-top:100px">404 Not Found</div>' }
+// const NotFoundComponent = { template: '<div style="font-size:40px; text-align:center; margin-top:100px">404 Not Found</div>' }
 
 const routes = [
-  {path: '*', component: NotFoundComponent},
+  // {path: '*', component: NotFoundComponent},
   {path: '/', component: Index},
   {path: '/addShare', component: AddShare},
   {path: '/chooseSource', component: ChooseSource},
