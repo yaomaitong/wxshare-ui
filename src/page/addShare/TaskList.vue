@@ -56,7 +56,6 @@
                   } else {
                       $toast.show('请求数据失败:'+res.message)
                   }
-                  console.log(response.body);
               }, response=> {
                   $toast.show('请求数据失败:'+response)
                   console.log(response.body);

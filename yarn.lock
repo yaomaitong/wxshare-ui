@@ -4139,6 +4139,10 @@ vue-img-inputer@^1.1.5:
     sass-loader "^6.0.5"
     vue "^2.3.3"
 
+vue-js-toggle-button@^1.2.0:
+  version "1.2.0"
+  resolved "http://registry.npm.taobao.org/vue-js-toggle-button/download/vue-js-toggle-button-1.2.0.tgz#d7ae11b9ec0ab57346faf89a34dec36b00b73eb5"
+
 vue-loader@^10.3.0:
   version "10.3.0"
   resolved "http://registry.npm.taobao.org/vue-loader/download/vue-loader-10.3.0.tgz#436421736e9ad0f1c481330327c376963db86a19"
@@ -4183,9 +4187,9 @@ vue-style-loader@^2.0.0:
     hash-sum "^1.0.2"
     loader-utils "^1.0.2"
 
-vue-template-compiler@^2.1.10:
-  version "2.2.1"
-  resolved "http://registry.npm.taobao.org/vue-template-compiler/download/vue-template-compiler-2.2.1.tgz#ca5e43db50dc6e761e3c1296313de33091783511"
+vue-template-compiler@2.1.10:
+  version "2.1.10"
+  resolved "http://registry.npm.taobao.org/vue-template-compiler/download/vue-template-compiler-2.1.10.tgz#cb89643adc395e97435585522e43d0a9b1913257"
   dependencies:
     de-indent "^1.0.2"
     he "^1.1.0"
@@ -4193,6 +4197,10 @@ vue-template-compiler@^2.1.10:
 vue-template-es2015-compiler@^1.2.2:
   version "1.5.1"
   resolved "http://registry.npm.taobao.org/vue-template-es2015-compiler/download/vue-template-es2015-compiler-1.5.1.tgz#0c36cc57aa3a9ec13e846342cb14a72fcac8bd93"
+
+vue@2.1.10:
+  version "2.1.10"
+  resolved "http://registry.npm.taobao.org/vue/download/vue-2.1.10.tgz#c9235ca48c7925137be5807832ac4e3ac180427b"
 
 vue@^2.1.0, vue@^2.1.8:
   version "2.2.1"

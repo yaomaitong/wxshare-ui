@@ -8,6 +8,9 @@ Vue.use(VueResource);
 import ConfirmButton from 'src/components/ConfirmButton'
 Vue.component('ConfirmButton', ConfirmButton)
 
+import ToggleButton from 'vue-js-toggle-button'
+Vue.use(ToggleButton)
+
 // Page Components
 import Index from './components/Index.vue'
 import About from './components/About.vue'

@@ -89,7 +89,8 @@ export default {
         back () {
             //清除数据
             this.$store.commit('clear')
-            $router.back({path: '/'})
+            $router.go(-1)
+            // $router.back({path: '/'})
         },
         onClick (index) {
             if (index == 0) {

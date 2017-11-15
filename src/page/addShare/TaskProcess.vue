@@ -1,5 +1,8 @@
 <template>
-    <div class="page has-navbar" v-nav="{title: '分享进程',showBackButton:true} ">
+    <div class="page has-navbar"
+    v-nav="{title: '分享进程',
+    onBackButtonClick: back,
+    showBackButton:true} ">
       <div class="page-content">
         <list>
           <item>
@@ -58,7 +61,9 @@ export default {
         taskObj : {},
         task: {},
         user : {},
-        contents :{}
+        contents :{},
+        isCancel : false
+
       }
   },
   created () {
@@ -67,7 +72,15 @@ export default {
   mounted () {
       this.loadData()
   },
+  distroyed () {
+    console.log("-------------distroyed");
+  },
   methods : {
+    back () {
+      this.isCancel = true
+      console.log("cancel task");
+      $router.go(-1);
+    },
       deviceProcessInfo (device, type) {
           var messages = device.messages
           let finishCount = 0
@@ -86,6 +99,10 @@ export default {
           return finishCount + '/' + messages.length
       },
       loadData () {
+        if (this.isCancel) {
+          console.log("推出页面，定时器停止");
+          return false
+        }
         console.log('请求数据');
         var url = baseUrl + 'v1/task/detail?task_id=' + this.taskId
         this.$http.get(url).then(response=> {
@@ -102,7 +119,6 @@ export default {
                     var secs = nowDate.getTime()-startDate.getTime()
                     //一小时以内的才重新请求
                     if (secs < 60 * 60 * 1000) {
-                        $toast.show('3s后下一次刷新')
                         console.log('3s后下一次刷新');
                         setTimeout(() => {
                             this.loadData()

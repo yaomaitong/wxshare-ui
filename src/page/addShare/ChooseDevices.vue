@@ -13,7 +13,20 @@
           <div v-for="item in devices">
             <!-- 设置页面 -->
             <div v-if="(promotionIndex == 1 && item.status == true) || (promotionIndex == 0 && item.status == false)">
-                <von-toggle v-if="type == 'set'" :text=item.device_alias v-model='item.status'  @click.native='activeDevice(item)'></von-toggle>
+              <item>
+              <span>{{item.device_alias}}</span>
+
+              <div class="device_toggle">
+                <toggle-button
+                  v-model="item.status"
+                  :width=70
+                  :height=35
+                  @change="activeDevice(item)"
+                  :color="{checked: '#4875de', unchecked: '#ccc'}"
+                 :labels="{checked: '休眠', unchecked: '激活'}"/>
+               </div>
+               </item>
+                <!-- <von-toggle v-if="type == 'set'" :text=item.device_alias v-model='item.status'  @click.native='activeDevice(item)'></von-toggle> -->
             </div>
 
             <!-- 选择页面 -->
@@ -48,6 +61,13 @@
     right: 0;
 }
 
+.device_toggle {
+    position: absolute;
+    right: 10px;
+    top:50%;
+    transform: translateY(-50%);
+}
+
 </style>
 
 <script>
@@ -69,6 +89,15 @@ export default {
     },
     mounted () {
         this.initData()
+    },
+    deactivated () {
+      console.log("------devices------deactivated");
+    },
+    beforeDistroy () {
+      console.log("------devices------before-distroyed");
+    },
+    distroyed () {
+      console.log("------devices-------distroyed");
     },
     methods : {
         onTabClick(index) {
@@ -103,7 +132,6 @@ export default {
             }
         },
         activeDevice (item) {
-            $toast.show('shouldActive:' + toActive);
             var toActive = item.status
             console.log('shouldActive:' + toActive);
             const formData = new FormData()
