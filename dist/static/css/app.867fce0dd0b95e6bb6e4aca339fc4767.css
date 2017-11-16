@@ -5,11 +5,11 @@
   right: 0;
   bottom: 0;
   background-color: #EA5A49;
-  height: 44px;
+  height: 50px;
   color: #fff;
   font-size: 18px;
   text-align: center;
-  line-height: 44px;
+  line-height: 50px;
   z-index: 9;
 }
 
@@ -36,6 +36,10 @@
   width: 100px;
   height: 100px;
   border-radius: 50%;
+}
+.user_name {
+  margin-top: 10px;
+  font-size: 18px;
 }
 
 .has_bottom_button {
@@ -97,6 +101,27 @@
   left: 0;
   right: 0;
 }
+.segment_control {
+  border: none;
+  background-color: #fff;
+}
+.von-button-bar .button-small {
+  font-size: 18px;
+  height: 50px;
+  padding-top: 11px;
+  border-radius: 0;
+}
+.von-button-bar {
+  margin: 0 0;
+}
+.von-button-bar > .button:first-child {
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+}
+.von-button-bar > .button:last-child {
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+}
 .device_toggle {
   position: absolute;
   right: 10px;
@@ -126,7 +151,6 @@
   margin-bottom: 44px;
   overflow-y: auto;
   overflow-x: hidden;
-  margin-top: 44px;
 }
 .shop_li[data-v-cf1f0c8a] {
   display: -ms-flexbox;
@@ -139,7 +163,9 @@
 .news_img[data-v-cf1f0c8a] {
   width: 70px;
   height: 70px;
-  display: block;
+  -ms-flex-negative: 0;
+      flex-shrink: 0;
+  border: 1px solid #B9B9B9;
   margin-right: 0.4rem;
 }
 .news_li_title[data-v-cf1f0c8a] {
@@ -179,6 +205,10 @@
     width: 25%;
     line-height: 25px;
 }
+.shareinfo_title {
+  width: 33%;
+  text-align: center;
+}
 .device_li {
     display: -ms-flexbox;
     display: flex;
@@ -188,12 +218,21 @@
 }
 .device_title {
     color: #422f11;
+    overflow : hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    max-height: 32px;
+    line-height: 1.2;
 }
 .task_img {
     /*background-color: #f00;*/
-    padding-left: 20px;
+    margin-left: 20px;
     padding-right: 20px;
-    max-height: 30px;
+    /*width: 30px;*/
+    /*max-height: 30px;*/
+    max-height: 50px;
+    /*max-width: 50px;*/
 }
 
 
@@ -215,5 +254,9 @@
   color: #555;
   text-decoration: none;
 }
+.right_content {
+  margin-left: 10px;
+  margin-top: 5px;
+}
 
-/*# sourceMappingURL=app.1647381bc92c45c74432435472c06e5c.css.map*/
+/*# sourceMappingURL=app.867fce0dd0b95e6bb6e4aca339fc4767.css.map*/
