@@ -1,10 +1,5 @@
 <template>
-  <div class="page has-navbar"
-   v-nav="{
-     title: '新建分享',
-     showBackButton:true,
-     onBackButtonClick: back
-   }">
+  <div class="page">
     <div class="page-content has_bottom_button">
       <list>
         <item class="item-icon-right" @click.native="onClick(0)">
@@ -21,7 +16,7 @@
           </div>
           <span class="icon ion-ios-arrow-right"></span>
         </item>
-        <von-toggle text="强制分享" v-model="isforce" @change.native='change'></von-toggle>
+        <von-toggle text="强制分享" v-model="isforce"></von-toggle>
 
         <!-- 预览手动设置的信息 -->
         <list v-if="$store.state.sourceType == '手动设置'">
@@ -69,7 +64,7 @@
 
       </list>
     </div>
-    <ConfirmButton btnTitle="确定" :submit='submitInfo' />
+    <ConfirmButton btnTitle="确定" :submit='beforeSubmit' />
   </div>
 </template>
 
@@ -82,16 +77,13 @@ export default {
         isforce: false,
       }
     },
+    created () {
+      let dd = window.dd
+      dd.biz.navigation.setTitle({
+          title : '新建分享',
+      });
+    },
     methods: {
-        change () {
-            // $toast.show('开关' + this.isforce)
-        },
-        back () {
-            //清除数据
-            this.$store.commit('clear')
-            $router.go(-1)
-            // $router.back({path: '/'})
-        },
         onClick (index) {
             if (index == 0) {
                 $router.forward('/chooseSource')
@@ -99,15 +91,27 @@ export default {
                 $router.forward({path : '/chooseDevices', query : {type : 'choose'}})
             }
         },
+        beforeSubmit () {
+          if (this.$store.state.sourceType == '请选择') {
+              $toast.show('请选择分享来源')
+              return
+          }
+          if (this.$store.state.deviceCount == 0) {
+              $toast.show('请选择分享的设备')
+              return
+          }
+          $dialog.confirm({
+            theme: 'ios',
+            title: '确定创建此项分享任务吗?',
+            cancelText: '取消',
+            okText: '确定'
+          }).then((res) => {
+            if (res) {
+                this.submitInfo()
+            }
+          })
+        },
         submitInfo () {
-            if (this.$store.state.sourceType == '请选择') {
-                $toast.show('请选择分享来源')
-                return
-            }
-            if (this.$store.state.deviceCount == 0) {
-                $toast.show('请选择分享的设备')
-                return
-            }
             var contentArr = []
             if (this.$store.state.sourceType == '手动设置') {
                 var content = {
@@ -144,14 +148,14 @@ export default {
             }
 
             var sendParams = {'contents':contentArr, 'push_devices': deviceArr}
-            var url = baseUrl + 'v1/task/create' + '?userId=3403048125'
+            var url = baseUrl + 'v1/task/create' + '?userId='+this.$store.state.user.id
             this.$http.post(url, sendParams)
             .then(response => {
                 var res = response.body
                 console.log(res);
                 if (res.code == 0) {
                     var taskId = res.data.task_id
-                    $router.forward({path : '/taskProcess', query : {taskid : taskId}})
+                    $router.forward({path : '/taskProcess', query : {taskid : taskId, from : "add"}})
                     // $toast.show('操作成功:'+res.data)
                 } else {
                     $toast.show('操作失败' + res.message)

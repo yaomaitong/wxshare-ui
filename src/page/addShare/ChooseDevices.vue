@@ -1,20 +1,19 @@
 <template>
-  <div class="page has-navbar"
-      v-nav="{
-          title: this.type == 'set' ? '手机管理' : '选择设备',
-          showBackButton:true,
-          showMenuButton: this.type == 'set' ? false : true,
-          menuButtonText:'全选',
-          onMenuButtonClick: chooseAll
-        }">
-
+  <div class="page">
     <div class="page-content text-left">
       <list>
           <div v-for="item in devices">
             <!-- 设置页面 -->
             <div v-if="(promotionIndex == 1 && item.status == true) || (promotionIndex == 0 && item.status == false)">
-              <item>
-              <span>{{item.device_alias}}</span>
+              <item v-if="type == 'set'">
+                <div style="font-size:15px">
+                  <div>
+                    <span >编号:{{item.device_alias}}</span>
+                  </div>
+                  <div style="padding-top:10px">
+                    <span>电量:{{item.power}}%</span>
+                  </div>
+                </div>
 
               <div class="device_toggle">
                 <ToggleButton
@@ -40,35 +39,12 @@
     <div v-if="type == 'choose'">
         <ConfirmButton btnTitle="确定" :submit='submitInfo' />
     </div>
-    <div v-if="type == 'set'" class="padding light-bg segment">
-      <button-bar theme="assertive" :tab-items="promotions" :tab-index="promotionIndex"
+    <div v-if="type == 'set'" class="segment">
+      <button-bar class="segment_control" theme="assertive" :tab-items="promotions" :tab-index="promotionIndex"
         :on-tab-click="onTabClick"></button-bar>
     </div>
   </div>
 </template>
-
-<style lang="scss">
-@import '../../style/public.scss';
-
-.list_container {
-    position: relative;
-}
-
-.segment {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-}
-
-.device_toggle {
-    position: absolute;
-    right: 10px;
-    top:50%;
-    transform: translateY(-50%);
-}
-
-</style>
 
 <script>
 import {baseUrl} from '../../config/env'
@@ -77,8 +53,8 @@ export default {
     data () {
       return {
           type : '',
-          promotions:["未激活", "已激活"],
-          promotionIndex: 0,
+          promotions:["未激活(0)", "已激活(0)"],
+          promotionIndex: 1,
           isforce : false,
           chosenDevices: [],
           devices: [],
@@ -86,18 +62,35 @@ export default {
     },
     created () {
       this.type = this.$route.query.type;
+      let dd = window.dd
+      dd.biz.navigation.setTitle({
+          title : this.type == 'set' ? '手机管理' : '选择设备',
+      });
+      if (this.type == 'choose') {
+        let that = this
+        dd.biz.navigation.setRight({
+            show: true,//控制按钮显示， true 显示， false 隐藏， 默认true
+            control: true,//是否控制点击事件，true 控制，false 不控制， 默认false
+            text: '全选',//控制显示文本，空字符串表示显示默认文本
+            onSuccess : function(result) {
+                that.chooseAll()
+            },
+            onFail : function(err) {}
+        });
+      }
     },
     mounted () {
         this.initData()
     },
-    deactivated () {
-      console.log("------devices------deactivated");
-    },
-    beforeDistroy () {
-      console.log("------devices------before-distroyed");
-    },
-    distroyed () {
-      console.log("------devices-------distroyed");
+    destroyed () {
+        let dd = window.dd
+        if (this.type == 'choose') {
+          let that = this
+          dd.biz.navigation.setRight({
+              show: true,
+              text: '',
+          });
+        }
     },
     methods : {
         onTabClick(index) {
@@ -149,9 +142,10 @@ export default {
                     $toast.show('操作失败'+res.message)
                     item.status = !toActive
                 }
+                this.undatePromotions()
             }, response => {
                 $toast.show(response)
-                item.status = false
+                item.status = !toActive
                 console.log(response);
             });
         },
@@ -168,22 +162,37 @@ export default {
           var isAll = chosenCount == allDeviceCount
           console.log('isall' + isAll);
           console.log(this.chosenDevices);
-          // var array = []
-          // for (var i = 0; i < this.chosenDevices.length; i++) {
-          //     var item = this.chosenDevices[i]
-          //     array.push(item)
-          // }
           this.$store.commit('changeChosenDevices', {'devices':this.chosenDevices, 'isAll' :isAll})
           //返回上一页
           this.$router.go(-1);
         },
         chooseAll () {
             //先清空已选择
+            if (this.chosenDevices.length == this.devices.length) {
+                this.chosenDevices.splice(0,this.chosenDevices.length);
+                return false
+            }
             this.chosenDevices.splice(0,this.chosenDevices.length);
             for (var i = 0; i < this.devices.length; i++) {
                 var item = this.devices[i]
                 this.chosenDevices.push(item);
             }
+        },
+        undatePromotions () {
+            let activeCount = 0
+            let unactiveCount = 0
+            for (var i = 0; i < this.devices.length; i++) {
+               var device = this.devices[i]
+               if (device.status) {
+                 activeCount ++
+               } else {
+                 unactiveCount ++
+               }
+            }
+            let activeStr = "已激活(" + activeCount + ")"
+            let unactiveStr = "未激活(" + unactiveCount + ")"
+            this.promotions = [unactiveStr, activeStr]
+            console.log("更新promotions");
         },
         loadData () {
             var url = baseUrl + 'v1/device/list'
@@ -205,6 +214,7 @@ export default {
                       }
                     } else {
                         this.devices = res.data
+                        this.undatePromotions()
                     }
                 } else {
                     $toast.show(res.message)
@@ -216,3 +226,52 @@ export default {
     }
 }
 </script>
+
+<style lang="scss">
+@import '../../style/public.scss';
+
+.list_container {
+    position: relative;
+}
+
+.segment {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.segment_control {
+  border: none;
+  background-color: #fff;
+}
+
+.von-button-bar .button-small {
+  font-size: 18px;
+  height: 50px;
+  padding-top: 11px;
+  border-radius: 0;
+}
+
+.von-button-bar {
+  margin: 0 0;
+}
+
+.von-button-bar > .button:first-child {
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+}
+
+.von-button-bar > .button:last-child {
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
+
+.device_toggle {
+    position: absolute;
+    right: 10px;
+    top:50%;
+    transform: translateY(-50%);
+}
+
+</style>

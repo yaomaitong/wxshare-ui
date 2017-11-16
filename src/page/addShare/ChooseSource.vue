@@ -1,5 +1,5 @@
 <template>
-  <div class="page has-navbar" v-nav="{title: '选择来源', showBackButton:true} ">
+  <div class="page">
     <div class="page-content text-left">
       <list>
         <item class="item-icon-right" @click.native="onClick(0)">
@@ -18,6 +18,18 @@
 
 <script>
     export default {
+        created () {
+          let dd = window.dd
+          dd.biz.navigation.setTitle({
+              title : '选择来源',
+              onSuccess : function(result) {
+                  /*结构
+                  {
+                  }*/
+              },
+              onFail : function(err) {}
+          });
+        },
         methods: {
             submitInfo () {
                 $toast.show('来源选择')

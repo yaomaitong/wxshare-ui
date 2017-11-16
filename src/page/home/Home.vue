@@ -1,9 +1,9 @@
 <template>
-    <div class="page has-navbar" v-nav="{title: '药脉通分享'} ">
+    <div class="page">
         <div class="page-content">
             <div class="head_img_container text-center">
               <img :src=this.$store.state.user.avatar class="head_img" />
-              <p>
+              <p class="user_name">
                 {{this.$store.state.user.name }}
               </p>
             </div>
@@ -32,11 +32,19 @@ import {baseUrl} from '../../config/env'
       }
     },
     created () {
+      // $toast.show("清除数据")
+      this.$store.commit('clear')
+      let dd = window.dd
+      dd.biz.navigation.setTitle({
+          title : '药脉通分享',
+      });
       let username = this.$store.state.user.name
-      if (username) {
+      let isdev = false//(process.env.NODE_ENV == 'development')
+      if (username || isdev) {
         return 0
       }
-      $loading.show('正在验证身份信息...')
+
+      // $loading.show('正在验证身份信息...')
       var url = baseUrl + 'dingtalk/auth?url=' + window.location
       console.log(url);
       this.$http.get(url).then(response => {
@@ -46,7 +54,7 @@ import {baseUrl} from '../../config/env'
             var config = res.data
             this.authDingTalk(config)
           } else {
-              $toast.show(res.message)
+              $toast.show('dingtalk/auth:'+res.message)
           }
       }, response => {
           $toast.show(response.body)
@@ -106,7 +114,7 @@ import {baseUrl} from '../../config/env'
                             that.$store.commit('setUserInfo', {id:userId, name:userName, avatar:userAvatar})
                           // alert(JSON.stringify(data))
                         } else {
-                            $toast.show(res.message)
+                            $toast.show('getuserinfo:'+res.message)
                         }
                     }, response => {
                         $toast.show(response.body)
@@ -173,5 +181,10 @@ import {baseUrl} from '../../config/env'
       width: 100px;
       height: 100px;
       border-radius: 50%;
+  }
+
+  .user_name {
+    margin-top: 10px;
+    font-size: 18px;
   }
 </style>

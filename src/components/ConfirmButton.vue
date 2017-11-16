@@ -33,11 +33,11 @@
       right: 0;
       bottom: 0;
       background-color: #EA5A49;
-      height: 44px;
+      height: 50px;
       color: #fff;
       font-size: 18px;
       text-align: center;
-      line-height: 44px;
+      line-height: 50px;
       z-index: 9;
     }
 </style>

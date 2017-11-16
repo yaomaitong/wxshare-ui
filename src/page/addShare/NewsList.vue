@@ -1,5 +1,5 @@
 <template>
-  <div class="page has-navbar" v-nav="{title: '选择新闻', showBackButton:true} ">
+  <div class="page">
       <scroll  class="newslist_container page-content"
         :on-infinite="onInfinite">
           <li v-for="item in newsListArr"  class="shop_li" @click='choose(item)'>
@@ -32,6 +32,18 @@ export default{
     },
     mounted (){
         this.initData();
+    },
+    created () {
+      let dd = window.dd
+      dd.biz.navigation.setTitle({
+          title : '选择新闻',
+          onSuccess : function(result) {
+              /*结构
+              {
+              }*/
+          },
+          onFail : function(err) {}
+      });
     },
     methods : {
       onInfinite(done) {
@@ -66,13 +78,25 @@ export default{
                 this.chosenNews.splice(index, 1);
             }
         } else {
+            if (this.chosenNews.length >= 3) {
+              $toast.show("单个任务最多选择3条新闻！")
+              return false;
+            }
             this.chosenNews.push(item);
         }
       },
       submitInfo () {
         //提交新闻
+        if (this.chosenNews.length <= 0) {
+            $toast.show("请选择新闻")
+            return;
+        }
         this.$store.commit('setChosenNews', this.chosenNews)
-        $router.back('/addShare')
+        // $router.back('/addShare')
+        // let dd = window.dd
+        // dd.biz.navigation.goBack()
+        // dd.biz.navigation.goBack()
+        this.$router.go(-2);
       },
       loadData () {
         //获取数据
@@ -105,7 +129,6 @@ export default{
 		margin-bottom: 44px;
     overflow-y: auto;
     overflow-x: hidden;
-    margin-top: 44px;
 	}
 
 	.shop_li {
@@ -118,7 +141,8 @@ export default{
 	.news_img{
     width: 70px;
     height: 70px;
-		display: block;
+    flex-shrink:0;
+    border: 1px solid #B9B9B9;
 		margin-right: 0.4rem;
 	}
   .news_li_title {

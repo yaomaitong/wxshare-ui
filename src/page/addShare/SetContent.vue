@@ -1,5 +1,5 @@
 <template>
-  <div class="page has-navbar" v-nav="{title: '设置分享内容', showBackButton:true} ">
+  <div class="page">
     <div class="page-content">
       <list>
         <von-input type="text" v-model="inputUrl" placeholder="请输入分享的网址" label="网址" floating-label="true"></von-input>
@@ -44,6 +44,18 @@ import {baseUrl} from '../../config/env'
                 picValue : this.$store.state.customShareInfo.imgUrl
             }
           },
+          created () {
+            let dd = window.dd
+            dd.biz.navigation.setTitle({
+                title : '设置分享内容',
+                onSuccess : function(result) {
+                    /*结构
+                    {
+                    }*/
+                },
+                onFail : function(err) {}
+            });
+          },
           methods: {
               onChange (file, fileName) {
                 $toast.show(fileName)
@@ -82,9 +94,9 @@ import {baseUrl} from '../../config/env'
                     //图片选择完立马上传获取到url 再存储
                     this.$store.commit('setCustomShareInfo', {title, url, desc})
                     //如果需要返回效果  使用
-                     $router.back({ path: '/addShare' })
+                     // $router.back({ path: '/addShare' })
                      //推出效果
-                     // this.$router.go(-2)
+                     this.$router.go(-2)
 
                   } else {
                       $toast.show('图片不能为空！')
