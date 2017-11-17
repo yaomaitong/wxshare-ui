@@ -10,7 +10,7 @@ if (process.env.NODE_ENV == 'development') {
 		baseUrl = 'http://web1.robintse.cn/api/'
 		//'http://192.168.50.16:9000/'
 } else if (process.env.NODE_ENV == 'production'){
-		baseUrl = 'http://web1.robintse.cn/api/'
+		baseUrl = 'http://wxshare.robintse.cn/api/'
 }
 
 export {
