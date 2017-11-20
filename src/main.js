@@ -13,6 +13,7 @@ Vue.use(ToggleButton)
 
 // Page Components
 import Index from './components/Index.vue'
+// import Home from './page/home/Home.vue'
 import AddShare from './page/addShare/AddShare.vue'
 import ChooseSource from './page/addShare/ChooseSource.vue'
 import ChooseDevices from './page/addShare/ChooseDevices.vue'
