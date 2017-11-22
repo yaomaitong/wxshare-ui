@@ -97,6 +97,7 @@ export default {
             this.promotionIndex = index
         },
         async initData () {
+            $loading.show()
             this.loadData();
         },
         indexOfArr (array, val) {
@@ -213,6 +214,7 @@ export default {
             this.$http.get(url).then(response => {
                 var res = response.body
                 console.log(res);
+                $loading.hide()
                 if (res.code == 0) {
                     this.sortArr(res.data)
                     if (this.type == 'choose') {
