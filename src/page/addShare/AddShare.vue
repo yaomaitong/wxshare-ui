@@ -114,8 +114,9 @@ export default {
         submitInfo () {
             var contentArr = []
             if (this.$store.state.sourceType == '手动设置') {
+               // var normalid =
                 var content = {
-                                "id": '0',
+                                "id": new Date().getTime(),
                                 "type": "manual",
                                 "title":this.$store.state.customShareInfo.title,
                                 "image_url":this.$store.state.customShareInfo.imgUrl,

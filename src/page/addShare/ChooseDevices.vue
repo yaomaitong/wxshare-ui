@@ -1,6 +1,6 @@
 <template>
   <div class="page">
-    <div class="page-content text-left">
+    <div class="page-content text-left has_bottom_button">
       <list>
           <div v-for="item in devices">
             <!-- 设置页面 -->
@@ -194,12 +194,27 @@ export default {
             this.promotions = [unactiveStr, activeStr]
             console.log("更新promotions");
         },
+        sortArr(arr){
+            for(var i=0;i<arr.length-1;i++){
+                for(var j=0;j<arr.length-1-i;j++){
+                    var item1 = arr[j]
+                    var item2 = arr[j+1]
+                    if(parseInt(item1.device_alias) > parseInt(item2.device_alias)){
+                        var temp=arr[j];
+                        arr[j]=arr[j+1];
+                        arr[j+1]=temp;
+                    }
+                }
+            }
+            return arr;
+        },
         loadData () {
             var url = baseUrl + 'v1/device/list'
             this.$http.get(url).then(response => {
                 var res = response.body
                 console.log(res);
                 if (res.code == 0) {
+                    this.sortArr(res.data)
                     if (this.type == 'choose') {
                       for (var i = 0; i < res.data.length; i++) {
                           var item = res.data[i]
