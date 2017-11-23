@@ -44,7 +44,7 @@ import {baseUrl} from '../../config/env'
         return 0
       }
 
-      // $loading.show('正在验证身份信息...')
+      $loading.show('正在验证身份信息...')
       var url = baseUrl + 'dingtalk/auth?url=' + window.location
       console.log(url);
       this.$http.get(url).then(response => {
