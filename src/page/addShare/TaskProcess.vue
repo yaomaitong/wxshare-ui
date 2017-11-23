@@ -39,17 +39,25 @@
               <label class="tab_label" v-if="pushFinished(item)"> <i class="ion-checkmark-circled" style="color:#0d0"></i></label>
               <label class="tab_label" v-else> {{ deviceProcessCount(item, 'push') }}/{{item.messages.length}}</label>
               <label class="tab_label" v-if="shareFinished(item)"> <i class="ion-checkmark-circled" style="color:#0d0"></i></label>
-              <label class="tab_label" v-else> {{ deviceProcessCount(item, 'share') }}/{{item.messages.length}}</label>
+              <label class="tab_label" v-else> {{ deviceProcessCount(item, 'share') }}/{{item.messages.length}}
+              <i class="expand_icon"  :class="selectDeviceId == item.id ? 'ion-arrow-down-b' : 'ion-arrow-right-b'"></i>
+            </label>
             </li>
             <div :class="selectDeviceId == item.id ? 'message_show' : 'message_hide'">
               <item class="message_li" v-for='message in item.messages'>
                 <span style="padding-top:5px;padding-left:12px">{{taskInfoForId(message.id)}}</span>
-                <span><md-button v-if="message.share_status==false" class="retry_btn" @click.native="retryAction(message)">重试</md-button></span>
+                <span>
+                  <md-button v-if="message.share_status==false" class="retry_btn" @click.native="retryAction(message)">
+                    重试
+                  </md-button>
+                  <md-button v-else class="didShare_btn"">
+                    已分享
+                  </md-button>
+                </span>
+
               </item>
             </div>
-
           </div>
-
         </list>
       </div>
     </div>
@@ -298,9 +306,28 @@ export default {
     text-align: center;
     color: #fff;
     position: absolute;
-    right: 5px;
+    right: 15px;
     /*top: 50%;
     transform: translateY(-50%);*/
+  }
+
+  .didShare_btn {
+    background-color: #bbb;
+    border-radius: 3px;
+    width: 55px;
+    height: 25px;
+    line-height: 25px;
+    text-align: center;
+    color: #fff;
+    position: absolute;
+    right: 15px;
+  }
+
+  .expand_icon {
+      color:#4875de;
+      padding-left: 5px;
+      padding-top: 3px;
+      font-size: 15px;
   }
 
 </style>

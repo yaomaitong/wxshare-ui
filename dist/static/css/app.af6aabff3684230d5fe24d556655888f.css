@@ -256,9 +256,26 @@
   text-align: center;
   color: #fff;
   position: absolute;
-  right: 5px;
+  right: 15px;
   /*top: 50%;
   transform: translateY(-50%);*/
+}
+.didShare_btn {
+  background-color: #bbb;
+  border-radius: 3px;
+  width: 55px;
+  height: 25px;
+  line-height: 25px;
+  text-align: center;
+  color: #fff;
+  position: absolute;
+  right: 15px;
+}
+.expand_icon {
+    color:#4875de;
+    padding-left: 5px;
+    padding-top: 3px;
+    font-size: 15px;
 }
 
 
@@ -285,4 +302,4 @@
   margin-top: 5px;
 }
 
-/*# sourceMappingURL=app.095732eae99a5e41f836f58188874052.css.map*/
+/*# sourceMappingURL=app.af6aabff3684230d5fe24d556655888f.css.map*/
