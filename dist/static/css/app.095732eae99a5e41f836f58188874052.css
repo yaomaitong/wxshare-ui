@@ -234,6 +234,32 @@
     max-height: 50px;
     /*max-width: 50px;*/
 }
+.message_li {
+  display: -ms-flexbox;
+  display: flex;
+  border-bottom: 0.025rem solid #f1f1f1;
+  padding: 0.7rem 0.4rem;
+  background-color: #f0f0f0;
+}
+.message_show {
+  display: block;
+}
+.message_hide {
+  display: none;
+}
+.retry_btn {
+  background-color: #4875de;
+  border-radius: 3px;
+  width: 45px;
+  height: 25px;
+  line-height: 25px;
+  text-align: center;
+  color: #fff;
+  position: absolute;
+  right: 5px;
+  /*top: 50%;
+  transform: translateY(-50%);*/
+}
 
 
 .task_li_img {
@@ -259,4 +285,4 @@
   margin-top: 5px;
 }
 
-/*# sourceMappingURL=app.867fce0dd0b95e6bb6e4aca339fc4767.css.map*/
+/*# sourceMappingURL=app.095732eae99a5e41f836f58188874052.css.map*/

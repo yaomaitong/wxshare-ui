@@ -1,7 +1,7 @@
 <template>
     <div class="page">
       <div class="page-content">
-        <list>
+        <list style="margin-bottom:40px">
           <item>
             操作人员
             <span class="item-note">
@@ -30,21 +30,34 @@
             设备
           </div>
           <li class="device_li">
-               <label class="tab_label device_title" v-for="item in this.deviceTitles">{{item}}</label>
+               <label class="tab_label" v-for="item in this.deviceTitles">{{item}}</label>
           </li>
-          <li class="device_li" v-for='item in this.taskObj.devices'>
-            <label class="tab_label"> {{ item.alias }}</label>
-            <label class="tab_label"> {{ item.online }}</label>
-            <label class="tab_label" v-if="pushFinished(item)"> <i class="ion-checkmark-circled" style="color:#0d0"></i></label>
-            <label class="tab_label" v-else> {{ deviceProcessCount(item, 'push') }}/{{item.messages.length}}</label>
-            <label class="tab_label" v-if="shareFinished(item)"> <i class="ion-checkmark-circled" style="color:#0d0"></i></label>
-            <label class="tab_label" v-else> {{ deviceProcessCount(item, 'share') }}/{{item.messages.length}}</label>
-          </li>
+          <div v-for='item in this.taskObj.devices'>
+            <li class="device_li" @click='deviceAction(item)'>
+              <label class="tab_label"> {{ item.alias }}</label>
+              <label class="tab_label"> {{ item.online }}</label>
+              <label class="tab_label" v-if="pushFinished(item)"> <i class="ion-checkmark-circled" style="color:#0d0"></i></label>
+              <label class="tab_label" v-else> {{ deviceProcessCount(item, 'push') }}/{{item.messages.length}}</label>
+              <label class="tab_label" v-if="shareFinished(item)"> <i class="ion-checkmark-circled" style="color:#0d0"></i></label>
+              <label class="tab_label" v-else> {{ deviceProcessCount(item, 'share') }}/{{item.messages.length}}</label>
+            </li>
+            <div :class="selectDeviceId == item.id ? 'message_show' : 'message_hide'">
+              <item class="message_li" v-for='message in item.messages'>
+                <span style="padding-top:5px;padding-left:12px">{{taskInfoForId(message.id)}}</span>
+                <span><md-button v-if="message.share_status==false" class="retry_btn" @click.native="retryAction(message)">重试</md-button></span>
+              </item>
+            </div>
+
+          </div>
+
         </list>
       </div>
     </div>
 </template>
 
+<!-- force_share:false
+id:"1e2eea2dde87423cbaea007d1bbdbb9d"
+push_status:true -->
 
 <script>
 import {baseUrl} from '../../config/env'
@@ -61,7 +74,8 @@ export default {
         task: {},
         user : {},
         contents :{},
-        isCancel : false
+        isCancel : false,
+        selectDeviceId : ''
       }
   },
   created () {
@@ -99,10 +113,46 @@ export default {
     }
   },
   methods : {
+    retryAction (message) {
+      var url = baseUrl + 'v1/message/replay?message_id=' + message.id
+      this.$http.post(url).then(response => {
+          var res = response.body
+          console.log(res);
+          if (res.code == 0) {
+              $toast.show('操作成功')
+          } else {
+              $toast.show('操作失败:' + res.message)
+          }
+      }, response => {
+          $toast.show('操作失败,请查看consolelog')
+          console.log(response);
+      });
+
+      // $toast.show('messageId:'+message.id)
+    },
+      taskInfoForId(id) {
+        var task = null
+        for (var i = 0; i < this.contents.length; i++) {
+          var content = this.contents[i]
+          if (content.id == id) {
+              task = content
+              break
+          }
+        }
+        var title = this.subStringWithL(task.title,18)
+        return title
+      },
+      deviceAction(item) {
+        if (this.selectDeviceId == '') {
+            this.selectDeviceId = item.id
+        } else {
+            this.selectDeviceId = ''
+        }
+      },
       subStringWithL (text, length) {
         var res = text
-          if (text.length > 8) {
-              res = text.subStr(0, length) + '...'
+          if (res.length > 8) {
+              res = text.substr(0, length) + '...'
           }
           return res
       },
@@ -222,6 +272,35 @@ export default {
       /*max-height: 30px;*/
       max-height: 50px;
       /*max-width: 50px;*/
+  }
+
+  .message_li {
+    display: flex;
+    border-bottom: 0.025rem solid #f1f1f1;
+    padding: 0.7rem 0.4rem;
+    background-color: #f0f0f0;
+  }
+
+  .message_show {
+    display: block;
+  }
+
+  .message_hide {
+    display: none;
+  }
+
+  .retry_btn {
+    background-color: #4875de;
+    border-radius: 3px;
+    width: 45px;
+    height: 25px;
+    line-height: 25px;
+    text-align: center;
+    color: #fff;
+    position: absolute;
+    right: 5px;
+    /*top: 50%;
+    transform: translateY(-50%);*/
   }
 
 </style>

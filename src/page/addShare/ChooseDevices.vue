@@ -80,7 +80,7 @@ export default {
       }
     },
     mounted () {
-        this.initData()
+        this.loadData()
     },
     destroyed () {
         let dd = window.dd
@@ -95,10 +95,6 @@ export default {
     methods : {
         onTabClick(index) {
             this.promotionIndex = index
-        },
-        async initData () {
-            $loading.show()
-            this.loadData();
         },
         indexOfArr (array, val) {
           for (var i = 0; i < array.length; i++) {
@@ -210,6 +206,7 @@ export default {
             return arr;
         },
         loadData () {
+            $loading.show()
             var url = baseUrl + 'v1/device/list'
             this.$http.get(url).then(response => {
                 var res = response.body
