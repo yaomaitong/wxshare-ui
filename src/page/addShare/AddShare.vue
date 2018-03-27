@@ -116,7 +116,7 @@ export default {
             if (this.$store.state.sourceType == '手动设置') {
                // var normalid =
                 var content = {
-                                "id": new Date().getTime(),
+                                "id": 'ymt' + new Date().getTime(),
                                 "type": "manual",
                                 "title":this.$store.state.customShareInfo.title,
                                 "image_url":this.$store.state.customShareInfo.imgUrl,
