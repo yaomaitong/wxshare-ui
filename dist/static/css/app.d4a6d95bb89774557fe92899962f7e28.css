@@ -198,7 +198,17 @@
 .last_select_img {
     height: 50px;
 }
-
+.input-box {
+  border-top: 1px solid rgb(230, 230, 230);
+  background-color: white;
+  padding: 10px 12px;
+}
+span {
+  color: rgba(50, 50, 50);
+}
+.input {
+  width: 100%;
+}
 
 .tab_label {
     text-align: center;
@@ -302,4 +312,4 @@
   margin-top: 5px;
 }
 
-/*# sourceMappingURL=app.af6aabff3684230d5fe24d556655888f.css.map*/
+/*# sourceMappingURL=app.d4a6d95bb89774557fe92899962f7e28.css.map*/

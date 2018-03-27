@@ -1,13 +1,24 @@
 <template>
   <div class="page">
     <div class="page-content">
+      <div class="input-box">
+        <span>网址</span>
+        <input v-model="inputUrl" class="input" type="text" name="text" value="" placeholder="请输入分享的网址">
+      </div>
+      <div class="input-box">
+        <span>标题</span>
+        <input v-model="inputTitle" class="input" type="text" name="text" value="" placeholder="请输入分享的标题">
+      </div>
+      <div class="input-box">
+        <span>描述</span>
+        <input v-model="inputDesc" class="input" type="text" name="text" value="" placeholder="请输入分享的描述">
+      </div>
+      <!-- <von-input type="text" v-model="inputUrl" placeholder="请输入分享的网址" label="网址" floating-label="true"></von-input>
+      <von-input type="text" v-model="inputTitle" placeholder="请输入分享的标题" label="标题" floating-label="true"></von-input>
+      <von-input type="text" v-model="inputDesc" placeholder="请输入分享的描述" label="描述" floating-label="true"></von-input> -->
       <list>
-        <von-input type="text" v-model="inputUrl" placeholder="请输入分享的网址" label="网址" floating-label="true"></von-input>
-        <von-input type="text" v-model="inputTitle" placeholder="请输入分享的标题" label="标题" floating-label="true"></von-input>
-        <von-input type="text" v-model="inputDesc" placeholder="请输入分享的描述" label="描述" floating-label="true"></von-input>
-
         <item class="item-icon-right">
-          图片
+          <span>图片</span>
             <div style="margin-top:0.5rem; margin-bottom:1.0rem">
               <VueImgInputer :onChange='onChange' accept="image/*" multiple v-model="picValue" theme="light" size="small"></VueImgInputer>
                 <!-- <input type="file"> -->
@@ -89,6 +100,10 @@ import {baseUrl} from '../../config/env'
                 let title = this.inputTitle
                 let url = this.inputUrl
                 let desc = this.inputDesc
+                // console.log('title:' + title);
+                // console.log('url:' + url);
+                // console.log('desc' + desc);
+                // return
                 if (title && url) {
                   if (this.$store.state.customShareInfo.imgUrl) {
                     //图片选择完立马上传获取到url 再存储
@@ -97,7 +112,6 @@ import {baseUrl} from '../../config/env'
                      // $router.back({ path: '/addShare' })
                      //推出效果
                      this.$router.go(-2)
-
                   } else {
                       $toast.show('图片不能为空！')
                   }
@@ -115,4 +129,17 @@ import {baseUrl} from '../../config/env'
     height: 50px;
 }
 
+.input-box {
+  border-top: 1px solid rgb(230, 230, 230);
+  background-color: white;
+  padding: 10px 12px;
+}
+
+span {
+  color: rgba(50, 50, 50);
+}
+
+.input {
+  width: 100%;
+}
 </style>
